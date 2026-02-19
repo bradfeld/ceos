@@ -49,6 +49,8 @@ Usage:
   ./setup.sh              Install skill symlinks (idempotent)
   ./setup.sh init         Install skills + guided company setup
   ./setup.sh init --force Install skills + recreate data/ from scratch
+  ./setup.sh --cowork     Set up for Claude Cowork (no symlinks needed)
+  ./setup.sh init --cowork  Guided setup + Cowork configuration
   ./setup.sh --uninstall  Remove skill symlinks (data untouched)
   ./setup.sh --help       Show this help
 
@@ -59,6 +61,10 @@ What each mode does:
   init         Runs the symlink step, then walks you through setting up
                your company's EOS data — company name, quarter, team
                members, and L10 meeting day. Creates data/ from templates.
+
+  --cowork     Verifies the plugin manifest and git remote, then prints
+               instructions for using CEOS in Claude Cowork. No symlinks
+               needed — Cowork reads skills from the plugin structure.
 
   --uninstall  Removes the skill symlinks. Your data in data/ is not
                touched — you can re-install any time with ./setup.sh.
@@ -140,6 +146,68 @@ uninstall_skills() {
     echo ""
     echo "Done. Removed $removed skill links."
     echo "Your data in data/ is untouched."
+}
+
+# ─────────────────────────────────────────────────
+# Verify git remote (shared by Code and Cowork)
+# ─────────────────────────────────────────────────
+
+verify_git_remote() {
+    local remote_url
+    remote_url="$(git -C "$CEOS_ROOT" remote get-url origin 2>/dev/null || echo "")"
+    if [[ -z "$remote_url" ]]; then
+        echo ""
+        echo "Note: No git remote configured. To sync with your team:"
+        echo "  git remote add origin <your-repo-url>"
+        echo ""
+    fi
+}
+
+# ─────────────────────────────────────────────────
+# Install for Claude Cowork (plugin mode)
+# ─────────────────────────────────────────────────
+
+install_cowork() {
+    echo "Setting up CEOS for Claude Cowork..."
+    echo ""
+
+    # Verify plugin manifest
+    if [[ ! -f "$CEOS_ROOT/.claude-plugin/plugin.json" ]]; then
+        echo "Error: Plugin manifest not found at .claude-plugin/plugin.json"
+        echo "This CEOS version may not support Cowork. Pull the latest from upstream."
+        exit 1
+    fi
+
+    # Verify git remote
+    local remote_url
+    remote_url="$(git -C "$CEOS_ROOT" remote get-url origin 2>/dev/null || echo "")"
+    if [[ -z "$remote_url" ]]; then
+        echo "Warning: No git remote 'origin' configured."
+        echo "Set one with: git remote add origin <your-repo-url>"
+        echo ""
+    else
+        echo "Git remote: $remote_url"
+        # Test connectivity
+        if git -C "$CEOS_ROOT" ls-remote --exit-code origin HEAD >/dev/null 2>&1; then
+            echo "Remote access: OK"
+        else
+            echo "Warning: Cannot reach remote. Check your credentials and network."
+        fi
+        echo ""
+    fi
+
+    echo "─────────────────────────────────────────────────"
+    echo "  Cowork Setup"
+    echo "─────────────────────────────────────────────────"
+    echo ""
+    echo "Skills are ready — Cowork reads them from the plugin structure."
+    echo "No symlinks needed."
+    echo ""
+    echo "To use in Claude Cowork:"
+    echo "  1. Open Cowork"
+    echo "  2. Set your working folder to: $CEOS_ROOT"
+    echo "  3. Try: /ceos:sync or \"Set rocks for this quarter\""
+    echo ""
 }
 
 # ─────────────────────────────────────────────────
@@ -352,11 +420,20 @@ case "${1:-}" in
     --uninstall)
         uninstall_skills
         ;;
+    --cowork)
+        install_cowork
+        ;;
     init)
-        init "${2:-}"
+        if [[ "${2:-}" == "--cowork" ]]; then
+            init ""
+            install_cowork
+        else
+            init "${2:-}"
+        fi
         ;;
     "")
         install_skills
+        verify_git_remote
         ;;
     *)
         echo "Unknown command: $1"

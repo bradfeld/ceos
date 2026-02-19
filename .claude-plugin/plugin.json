@@ -1,0 +1,10 @@
+{
+  "name": "ceos",
+  "description": "Run EOS with AI — 16 skills for the Entrepreneurial Operating System",
+  "version": "1.0.0",
+  "author": {
+    "name": "Josh Miramant"
+  },
+  "repository": "https://github.com/BlueOrangeDigital/ceos",
+  "license": "MIT"
+}
