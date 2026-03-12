@@ -1,8 +1,8 @@
 # Scorecard Metrics
 
-## Manifest AI
+## Meridian Labs
 
-*The 5-15 numbers that tell you the health of your business at a glance. Review weekly.*
+*The numbers that tell you the health of your business at a glance. Review weekly at L10.*
 
 ---
 
@@ -16,11 +16,13 @@ Each metric has an **owner**, a **goal**, and **green/red thresholds**. During t
 
 | Metric | Owner | Goal | Frequency | Green | Red |
 |--------|-------|------|-----------|-------|-----|
-| Weekly Revenue | [Name] | $[amount] | Weekly | >= $[amount] | < $[amount] |
-| New Customers | [Name] | [number] | Weekly | >= [number] | < [number] |
-| Customer Satisfaction (NPS) | [Name] | [score] | Monthly | >= [score] | < [score] |
-| Cash Balance | [Name] | $[amount] | Weekly | >= $[amount] | < $[amount] |
-| [Your Metric] | [Name] | [goal] | Weekly | [threshold] | [threshold] |
+| New sales calls | Morgan Taylor | 10/week | Weekly | >= 10 | < 7 |
+| Active pilots in pipeline | Morgan Taylor | 8 in pipeline | Weekly | >= 8 | < 5 |
+| Monthly recurring revenue | Sam Patel | $400K | Monthly | >= $400K | < $380K |
+| Cash runway | Sam Patel | 12+ months | Monthly | >= 12 months | < 9 months |
+| Platform uptime | Casey Williams | 99.9% | Weekly | >= 99.9% | < 99.5% |
+| Support ticket resolution time | Casey Williams | < 4 hours | Weekly | < 4 hours | > 6 hours |
+| Weekly active users | Jordan Chen | 500 | Weekly | >= 500 | < 400 |
 
 ---
 

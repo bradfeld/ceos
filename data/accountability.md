@@ -1,8 +1,8 @@
 # Accountability Chart
 
-## Manifest AI
+## Meridian Labs
 
-*Last updated: 2026-02-23*
+*Last updated: 2026-01-15*
 
 ---
 
@@ -14,21 +14,21 @@ Every seat has **one owner** and **five roles** (the key responsibilities for th
 
 ## Visionary
 
-**Owner:** [Name]
+**Owner:** Alex Rivera
 
 | # | Role |
 |---|------|
-| 1 | Big relationships — key customers, partners, industry connections |
-| 2 | Culture — maintain and protect the company's core values |
-| 3 | Big ideas — R&D, new products, creative direction |
-| 4 | Problem solving — remove major obstacles |
-| 5 | Selling — major deals, keynotes, brand presence |
+| 1 | Big relationships — key investors, enterprise prospects, strategic partners |
+| 2 | Culture — protect and embody core values |
+| 3 | Big ideas — product vision, AI strategy, long-term direction |
+| 4 | Fundraising — lead Series A and investor relationships |
+| 5 | Brand presence — keynotes, thought leadership, public voice |
 
 ---
 
 ## Integrator
 
-**Owner:** [Name]
+**Owner:** Jordan Chen
 
 | # | Role |
 |---|------|
@@ -42,43 +42,43 @@ Every seat has **one owner** and **five roles** (the key responsibilities for th
 
 ## Sales/Marketing
 
-**Owner:** [Name]
+**Owner:** Morgan Taylor
 
 | # | Role |
 |---|------|
-| 1 | [Key responsibility] |
-| 2 | [Key responsibility] |
-| 3 | [Key responsibility] |
-| 4 | [Key responsibility] |
-| 5 | [Key responsibility] |
+| 1 | Enterprise pipeline — identify, qualify, and close new customers |
+| 2 | Partner relationships — TechForward Network and channel partners |
+| 3 | Commercial terms — pricing, contracts, revenue agreements |
+| 4 | Brand & messaging — positioning, communications, content |
+| 5 | Marketing — demand generation, events, thought leadership |
 
 ---
 
 ## Operations
 
-**Owner:** [Name]
+**Owner:** Casey Williams
 
 | # | Role |
 |---|------|
-| 1 | [Key responsibility] |
-| 2 | [Key responsibility] |
-| 3 | [Key responsibility] |
-| 4 | [Key responsibility] |
-| 5 | [Key responsibility] |
+| 1 | Product development — Compass platform roadmap and delivery |
+| 2 | Technology infrastructure — platform reliability, security, scalability |
+| 3 | Customer onboarding — implementation success and time-to-value |
+| 4 | Support — ticket resolution and customer health monitoring |
+| 5 | Engineering hiring — recruiting and growing the engineering team |
 
 ---
 
 ## Finance
 
-**Owner:** [Name]
+**Owner:** Sam Patel
 
 | # | Role |
 |---|------|
-| 1 | [Key responsibility] |
-| 2 | [Key responsibility] |
-| 3 | [Key responsibility] |
-| 4 | [Key responsibility] |
-| 5 | [Key responsibility] |
+| 1 | Cash management — monitor runway and cash balance |
+| 2 | Financial reporting — P&L, burn rate, projections |
+| 3 | Fundraising support — investor materials, data room, due diligence |
+| 4 | Revenue operations — billing, contracts, financial compliance |
+| 5 | Budget — quarterly budget management and forecasting |
 
 ---
 
