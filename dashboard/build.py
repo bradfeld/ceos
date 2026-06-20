@@ -151,6 +151,8 @@ def load_all_rocks():
 def load_scorecard():
     """Parse the metrics table from data/scorecard/metrics.md."""
     path = os.path.join(DATA_DIR, "scorecard", "metrics.md")
+    if not os.path.exists(path):
+        return []
     with open(path, encoding="utf-8") as f:
         text = f.read()
 
@@ -182,6 +184,8 @@ def load_scorecard():
 def load_accountability():
     """Parse seat sections from data/accountability.md."""
     path = os.path.join(DATA_DIR, "accountability.md")
+    if not os.path.exists(path):
+        return []
     with open(path, encoding="utf-8") as f:
         text = f.read()
 
@@ -327,6 +331,8 @@ def load_vision():
 def load_l10():
     """Parse the L10 standing agenda into structured sections."""
     path = os.path.join(DATA_DIR, "meetings", "l10", "agenda.md")
+    if not os.path.exists(path):
+        return {"schedule": "", "attendees": [], "sections": []}
     with open(path, encoding="utf-8") as f:
         text = f.read()
 

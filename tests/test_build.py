@@ -384,3 +384,45 @@ class TestBuildIntegration:
         assert "rocks_by_quarter" in data
         assert "quarters" in data
         assert "current_quarter" in data
+
+
+# ---------------------------------------------------------------------------
+# Missing-data resilience
+# ---------------------------------------------------------------------------
+
+class TestMissingDataGraceful:
+    """Loaders must degrade gracefully when data files are absent.
+
+    The public repo ships without the private data/ tree, so the dashboard
+    workflow builds against an empty data dir. Regression: the build failed at
+    load_scorecard with FileNotFoundError on data/scorecard/metrics.md.
+    """
+
+    def test_scorecard_missing_returns_empty(self, monkeypatch, tmp_path):
+        monkeypatch.setattr(build, "DATA_DIR", str(tmp_path))
+        assert build.load_scorecard() == []
+
+    def test_accountability_missing_returns_empty(self, monkeypatch, tmp_path):
+        monkeypatch.setattr(build, "DATA_DIR", str(tmp_path))
+        assert build.load_accountability() == []
+
+    def test_l10_missing_returns_empty_shape(self, monkeypatch, tmp_path):
+        monkeypatch.setattr(build, "DATA_DIR", str(tmp_path))
+        assert build.load_l10() == {"schedule": "", "attendees": [], "sections": []}
+
+    def test_full_build_with_no_data(self, monkeypatch, tmp_path):
+        """The whole pipeline must complete against an empty data dir (the CI scenario)."""
+        data_dir = tmp_path / "data"  # deliberately not created → fully empty
+        docs_dir = tmp_path / "docs"
+        monkeypatch.setattr(build, "DATA_DIR", str(data_dir))
+        monkeypatch.setattr(build, "DOCS_DIR", str(docs_dir))
+        monkeypatch.delenv("DASHBOARD_PASSWORD", raising=False)
+        monkeypatch.delenv("GITHUB_WRITE_TOKEN", raising=False)
+
+        build.build()
+
+        out = docs_dir / "index.html"
+        assert out.exists(), "index.html should still be produced with no data"
+        html = out.read_text(encoding="utf-8")
+        assert html.startswith("<!DOCTYPE html>")
+        assert "tab-scorecard" in html  # tabs render even with empty datasets
