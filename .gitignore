@@ -31,5 +31,20 @@ Thumbs.db
 *.swo
 *~
 
+# Secrets. Nothing has leaked — no .env exists in any commit of this repo — but
+# this is a public repo with a dashboard build that reads GITHUB_WRITE_TOKEN and
+# DASHBOARD_PASSWORD from the environment, so a local .env is the obvious next
+# step for anyone running it, and there was no rule stopping them committing it.
+.env
+.env.*
+!.env.example
+
+# Python artifacts (dashboard/build.py and its tests)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
 # Node artifacts (in case anyone adds tooling)
 node_modules/

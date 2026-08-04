@@ -426,3 +426,91 @@ class TestMissingDataGraceful:
         html = out.read_text(encoding="utf-8")
         assert html.startswith("<!DOCTYPE html>")
         assert "tab-scorecard" in html  # tabs render even with empty datasets
+
+
+class TestWriteTokenNeverPublishedInPlaintext:
+    """COS-698 item 3 — the token and the password must not be independent.
+
+    `window.GITHUB_TOKEN` carries a GitHub WRITE credential. Before this, the
+    token was substituted unconditionally while encryption was conditional on
+    DASHBOARD_PASSWORD, so setting the token alone published a live write
+    credential in plaintext on a public Pages site. Nothing warned, and 54 forks
+    inherit the design.
+
+    These tests assert the two are BOUND, and — more importantly — that the
+    token never appears in bytes that get written to disk.
+    """
+
+    def test_token_without_password_refuses_to_build(self, monkeypatch, tmp_path):
+        monkeypatch.setattr(build, "DOCS_DIR", str(tmp_path))
+        monkeypatch.setattr(build, "DATA_DIR", FIXTURES)
+        monkeypatch.setenv("GITHUB_WRITE_TOKEN", "ghp_TESTONLY_not_a_real_token")
+        monkeypatch.delenv("DASHBOARD_PASSWORD", raising=False)
+
+        with pytest.raises(SystemExit) as exc:
+            build.build()
+
+        assert "REFUSING TO BUILD" in str(exc.value)
+        # And nothing was written — a refusal that still emits the file is not a
+        # refusal, because Pages deploys whatever is in docs/.
+        assert not (tmp_path / "index.html").exists()
+
+    def test_token_with_password_never_reaches_the_written_file(self, monkeypatch, tmp_path):
+        """The real assertion: grep the OUTPUT for the token, not just for a marker.
+
+        Asserting 'encryption was enabled' would pass even if the token leaked
+        alongside the ciphertext. This checks the bytes on disk.
+        """
+        pytest.importorskip("cryptography")
+        monkeypatch.setattr(build, "DOCS_DIR", str(tmp_path))
+        monkeypatch.setattr(build, "DATA_DIR", FIXTURES)
+        token = "ghp_TESTONLY_not_a_real_token"
+        monkeypatch.setenv("GITHUB_WRITE_TOKEN", token)
+        monkeypatch.setenv("DASHBOARD_PASSWORD", "correct horse battery staple")
+
+        build.build()
+
+        written = (tmp_path / "index.html").read_text(encoding="utf-8")
+        assert token not in written, "write token leaked into the published page"
+        # Sanity: it really is the encrypted login page, not merely a page that
+        # happens not to contain the token.
+        assert "__CT__" not in written, "login template placeholder was left unsubstituted"
+        assert "DASHBOARD_DATA" not in written, "plaintext body leaked alongside the ciphertext"
+
+    def test_no_token_and_no_password_still_builds(self, monkeypatch, tmp_path):
+        """The common case — a public read-only dashboard — must be unaffected."""
+        monkeypatch.setattr(build, "DOCS_DIR", str(tmp_path))
+        monkeypatch.setattr(build, "DATA_DIR", FIXTURES)
+        monkeypatch.delenv("GITHUB_WRITE_TOKEN", raising=False)
+        monkeypatch.delenv("DASHBOARD_PASSWORD", raising=False)
+
+        build.build()
+
+        html = (tmp_path / "index.html").read_text(encoding="utf-8")
+        assert "window.GITHUB_TOKEN = ''" in html
+        assert "DASHBOARD_DATA" in html
+
+    def test_password_without_cryptography_refuses_rather_than_shipping_plaintext(
+        self, monkeypatch, tmp_path
+    ):
+        """The second live-fire path, which the audit did not name.
+
+        protect_with_password used to catch ImportError, print a warning, and
+        return the PLAINTEXT html. So the one case where protection was
+        explicitly requested was also the case where it silently shipped
+        unprotected — with a live token inside it.
+        """
+        import builtins
+        real_import = builtins.__import__
+
+        def no_cryptography(name, *args, **kwargs):
+            if name.startswith("cryptography"):
+                raise ImportError("simulated: cryptography not installed")
+            return real_import(name, *args, **kwargs)
+
+        monkeypatch.setattr(builtins, "__import__", no_cryptography)
+
+        with pytest.raises(SystemExit) as exc:
+            build.protect_with_password("<html>secret</html>", "pw")
+
+        assert "REFUSING TO BUILD" in str(exc.value)

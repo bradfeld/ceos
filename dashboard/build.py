@@ -3167,13 +3167,33 @@ autoUnlock();
 
 
 def protect_with_password(html, password):
-    """Encrypt html with AES-256-GCM and wrap in a login page."""
+    """Encrypt html with AES-256-GCM and wrap in a login page.
+
+    Returns ONLY the login page: salt, nonce, and ciphertext. The plaintext —
+    including any injected write token — is never part of the output.
+
+    A missing `cryptography` is FATAL rather than a warning. It used to print a
+    warning and return the plaintext html, which meant the one case where the
+    caller had explicitly asked for protection was also the case where it
+    silently shipped an unprotected page. The build still succeeded, the page
+    still deployed, and the only signal was a line of stdout in a CI log nobody
+    reads. Refusing to build is the correct outcome: you asked for protection
+    and it cannot be delivered.
+    """
     try:
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
     except ImportError:
-        print("WARNING: 'cryptography' not installed — skipping password protection.")
-        print("         Run: pip install cryptography")
-        return html
+        raise SystemExit(
+            "REFUSING TO BUILD: DASHBOARD_PASSWORD is set but the 'cryptography'\n"
+            "package is not installed, so the page cannot be encrypted.\n"
+            "\n"
+            "Continuing would publish an UNPROTECTED page that you have every\n"
+            "reason to believe is protected.\n"
+            "\n"
+            "  Fix:  pip install cryptography\n"
+            "  Or:   unset DASHBOARD_PASSWORD to build an intentionally public page\n"
+            "        (only valid if GITHUB_WRITE_TOKEN is also unset)."
+        )
 
     salt  = os.urandom(32)
     nonce = os.urandom(12)
@@ -3227,17 +3247,48 @@ def build():
     html = html.replace("__WEEK__",     str(week))
     html = html.replace("__UPDATED__",      updated)
     html = html.replace("__DATA_JSON__",    json.dumps(data, ensure_ascii=False))
-    html = html.replace("__GITHUB_TOKEN__", os.environ.get("GITHUB_WRITE_TOKEN", ""))
+    # A GitHub WRITE token is inlined into the page as `window.GITHUB_TOKEN`, so
+    # whether the page ends up encrypted is not a display preference — it decides
+    # whether that credential is published in plaintext.
+    #
+    # These two env vars were previously independent: the token was substituted
+    # unconditionally, while encryption was conditional on DASHBOARD_PASSWORD. So
+    # setting GITHUB_WRITE_TOKEN alone published a live write token, in the clear,
+    # on a public GitHub Pages site that search engines crawl. Nothing warned.
+    #
+    # Binding them makes that combination unrepresentable rather than merely
+    # discouraged. It fails loudly at build time, before anything is deployed —
+    # the only point at which the mistake is still free to fix.
+    token    = os.environ.get("GITHUB_WRITE_TOKEN", "")
+    password = os.environ.get("DASHBOARD_PASSWORD")
+
+    if token and not password:
+        raise SystemExit(
+            "REFUSING TO BUILD: GITHUB_WRITE_TOKEN is set but DASHBOARD_PASSWORD is not.\n"
+            "\n"
+            "The token is inlined into the page as window.GITHUB_TOKEN. Without a\n"
+            "password the page is not encrypted, so this would publish a live GitHub\n"
+            "WRITE credential in plaintext at your Pages URL.\n"
+            "\n"
+            "  Fix:    set DASHBOARD_PASSWORD as well (the page is then AES-256-GCM\n"
+            "          encrypted and the token ships only inside the ciphertext).\n"
+            "  Or:     unset GITHUB_WRITE_TOKEN for a read-only dashboard.\n"
+            "\n"
+            "If a token was ever built and deployed this way, treat it as compromised\n"
+            "and rotate it — the page was public and may be cached or indexed."
+        )
+
+    html = html.replace("__GITHUB_TOKEN__", token)
     html = html.replace("__GITHUB_REPO__",  "owner/repo")
     html = html.replace("__TEAM_MEMBERS_JSON__", json.dumps(team_names))
     html = html.replace("__OWNER_CLS_JSON__",    json.dumps(team_owner_cls))
 
-    password = os.environ.get("DASHBOARD_PASSWORD")
     if password:
         html = protect_with_password(html, password)
         print("  Password protection: enabled")
     else:
         print("  Password protection: disabled (set DASHBOARD_PASSWORD to enable)")
+        print("  Write token:         absent (read-only dashboard)")
 
     out = os.path.join(DOCS_DIR, "index.html")
     with open(out, "w", encoding="utf-8") as f:
