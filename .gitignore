@@ -1,5 +1,17 @@
-# Company EOS data — committed in this private repo
-# (The public upstream repo at bradfeld/ceos excludes data/)
+# Company EOS data — NEVER commit this.
+#
+# Your accountability chart, scorecard, rocks, issues, and financials are
+# confidential. This repository is public, and so is every fork of it, so a
+# committed data/ directory is readable by anyone — and stays readable after you
+# delete it, because it remains in the commit history and in the shared fork
+# object store. If you have already committed data/, removing the file is not
+# enough; rewrite the history and rotate anything sensitive it revealed.
+#
+# The rule below is what enforces the exclusion. Before 2026-08-04 this section
+# was a comment ASSERTING that data/ was excluded, with no matching rule anywhere
+# in the file — wording inherited from the private upstream repo, where data/ is
+# deliberately tracked. An assertion is not a rule.
+data/
 
 # Session state (per-worktree, not shared)
 .claude-session/
