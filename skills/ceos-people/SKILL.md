@@ -249,7 +249,7 @@ Use for the formal quarterly review of all seats against the Accountability Char
 
 Read `data/accountability.md` to get all seats and their current owners.
 
-If the file doesn't exist or is empty: "No accountability chart found. Create one first with ceos-vto or manually at `data/accountability.md`."
+If the file doesn't exist or is empty: "No accountability chart found. Create one first with `ceos-accountability` or manually at `data/accountability.md`."
 
 #### Step 2: Map Seats to People
 

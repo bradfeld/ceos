@@ -1,6 +1,7 @@
 ---
 date: "{{date}}"
 attendees: "{{attendees}}"
+quarter: "{{quarter}}"
 location: "[Location]"
 ---
 

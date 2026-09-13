@@ -321,7 +321,7 @@ Delegation Plan
 
 #### Step 5: Note To-Do Integration
 
-Display: "Delegation actions saved to the delegate file. Once the ceos-todos skill is available, these can be promoted to tracked To-Dos with owners and due dates."
+Display: "Delegation actions saved to the delegate file. These can be promoted to tracked To-Dos with owners and due dates via `ceos-todos`."
 
 #### Step 6: Save Updated File
 
@@ -367,9 +367,9 @@ Update:
 
 ### To-Dos (ceos-todos)
 
-- **Direction:** Related (future integration)
-- **What data:** Will write to `data/todos/` once CEO-14 is implemented
-- **Purpose:** Delegation actions from Plan mode could become tracked To-Dos with owners and due dates. Currently stored as markdown checklists in the delegate file.
+- **Direction:** Related
+- **What data:** `data/todos/` — delegation actions can be promoted to tracked To-Dos via `ceos-todos`
+- **Purpose:** Delegation actions from Plan mode can become tracked To-Dos with owners and due dates. Currently stored as markdown checklists in the delegate file.
 
 ### Quarterly Planning (ceos-quarterly-planning)
 

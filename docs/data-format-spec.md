@@ -605,13 +605,108 @@ Pure markdown document — no YAML frontmatter. Describes the company's organiza
 
 ## [Company Name]
 
-## [Function Name]
-**Seat:** [Role title]
-**Person:** [Name]
+*Last updated: YYYY-MM-DD*
 
-### Roles
-- [Key responsibility]
-- [Key responsibility]
+## [Function Name]
+
+**Owner:** [Name]
+
+| # | Role |
+|---|------|
+| 1 | [Key responsibility] |
+| 2 | [Key responsibility] |
+| 3 | [Key responsibility] |
+| 4 | [Key responsibility] |
+| 5 | [Key responsibility] |
+```
+
+Each function is an H2 heading. Roles are listed in a numbered table (5 per seat). The function heading IS the seat — there is no separate "Seat:" field.
+
+---
+
+## Process Format
+
+**Location:** `data/processes/core-process-name.md`
+
+### Frontmatter Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | Unique identifier (e.g., `process-001`) |
+| `title` | string | Yes | Name of the core process |
+| `owner` | string | Yes | Person accountable for this process |
+| `fba_score` | integer | Yes | Followed By All score (0-100) |
+| `last_audited` | date | No | Date of most recent FBA audit |
+| `status` | enum | Yes | Current status (see below) |
+| `created` | date | Yes | Date the process was created |
+
+### Status Values
+
+| Value | Meaning |
+|-------|---------|
+| `draft` | Process documented but not yet finalized |
+| `active` | Process is finalized and being followed |
+| `archived` | Process is no longer in use |
+
+### Body Structure
+
+```markdown
+# [Process Title]
+
+## Purpose
+
+> [Why this process exists — what outcome it ensures]
+
+## Process Steps
+
+1. [First step — start with an action verb]
+2. [Second step]
+3. [Continue as needed — aim for 5-20 steps]
+
+## Owner
+
+**[Name]** is accountable for this process being documented, simplified, and followed by all.
+
+## Audit History
+
+- YYYY-MM-DD: [Audit event]
+```
+
+### Example
+
+```markdown
+---
+id: process-001
+title: "Customer Onboarding"
+owner: "daniel"
+fba_score: 80
+last_audited: "2026-02-01"
+status: active
+created: "2026-01-15"
+---
+
+# Customer Onboarding
+
+## Purpose
+
+> Ensures every new customer is onboarded consistently and starts getting value within their first week.
+
+## Process Steps
+
+1. Send welcome email with login credentials
+2. Schedule kickoff call within 48 hours
+3. Walk through initial setup during kickoff
+4. Assign dedicated support contact
+5. Follow up at day 3, day 7, and day 14
+
+## Owner
+
+**Daniel** is accountable for this process being documented, simplified, and followed by all.
+
+## Audit History
+
+- 2026-01-15: Process created (status: draft)
+- 2026-02-01: FBA audit — 80% (4/5 team members following all steps)
 ```
 
 ---
@@ -770,6 +865,7 @@ departed: false
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
+| `type` | enum | No | Conversation type: `full` (default) or `quick` |
 | `person` | string | Yes | Full name of the direct report |
 | `manager` | string | Yes | Full name of the manager |
 | `quarter` | string | Yes | Quarter in `YYYY-QN` format (e.g., `2026-Q1`) |
@@ -786,7 +882,16 @@ departed: false
 | `fail` | One or more GWC dimensions are `false` |
 | `evaluating` | Not yet fully assessed |
 
-### Body Structure
+### Type Values
+
+| Value | Meaning |
+|-------|---------|
+| `full` | Standard Quarterly Conversation (30-60 min, 5-section agenda). This is the default — files without a `type` field are treated as `full`. |
+| `quick` | 5-5-5 Quick Check-In (15 min, 3 time-boxed sections). Lightweight touchpoint between full conversations. |
+
+**Backward compatibility:** Existing conversation files without a `type` field are treated as `full`. All reading code must handle the missing field gracefully.
+
+### Body Structure (Full Conversation)
 
 ```markdown
 # Quarterly Conversation — [Full Name]
@@ -910,6 +1015,134 @@ rocks_completion_rate: 75
 ## Conversation History
 
 - 2026-03-28: Q1 quarterly conversation conducted
+```
+
+---
+
+## 5-5-5 Quick Note Format
+
+**Location:** `data/conversations/YYYY-QN/firstname-lastname-quick.md`
+
+The 5-5-5 is a lightweight 15-minute check-in between a manager and direct report. Three time-boxed sections (5 minutes each) cover Core Values, Rocks, and Roles (GWC). Unlike the full Quarterly Conversation, the 5-5-5 is informal — no formal scoring, ratings, or pass/fail assessments.
+
+### Quick Note Frontmatter
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `type` | enum | Yes | Must be `quick` |
+| `person` | string | Yes | Full name of the direct report |
+| `manager` | string | Yes | Full name of the manager |
+| `quarter` | string | Yes | Quarter in `YYYY-QN` format |
+| `date` | date | Yes | Date the check-in took place |
+| `core_values_rating` | null | No | Always `null` for quick (no formal scoring) |
+| `gwc_status` | null | No | Always `null` for quick (no formal scoring) |
+| `rocks_completion_rate` | null | No | Always `null` for quick (no formal scoring) |
+
+**Scoring fields:** Set to `null` to distinguish "not scored" (quick check-in) from "scored poorly" (full conversation). This is intentional — the 5-5-5 is informal by design.
+
+### Quick Note Body Structure
+
+```markdown
+# 5-5-5 Check-In — [Full Name]
+
+**Manager:** [Manager Name]
+**Quarter:** YYYY-QN
+**Date:** YYYY-MM-DD
+
+---
+
+## Employee Speaks (5 min)
+
+**Core Values:** [How are they living the Core Values?]
+
+**Rocks:** [How are their Rocks going?]
+
+**Role (GWC):** [How do they feel about their seat?]
+
+---
+
+## Manager Speaks (5 min)
+
+**Performance:** [How is the employee doing?]
+
+**Wins:** [What's going well?]
+
+**Concerns:** [Any issues to address?]
+
+---
+
+## Together (5 min)
+
+**Next Steps:**
+- [Agreed action or commitment]
+
+**Commitments:**
+- [What each person will do before next check-in]
+
+---
+
+## Conversation History
+
+- YYYY-MM-DD: 5-5-5 check-in conducted
+```
+
+### Quick Note Example
+
+```markdown
+---
+type: quick
+person: "Sarah Chen"
+manager: "Brad"
+quarter: "2026-Q1"
+date: "2026-02-14"
+core_values_rating: null
+gwc_status: null
+rocks_completion_rate: null
+---
+
+# 5-5-5 Check-In — Sarah Chen
+
+**Manager:** Brad
+**Quarter:** 2026-Q1
+**Date:** 2026-02-14
+
+---
+
+## Employee Speaks (5 min)
+
+**Core Values:** Feeling strong on Integrity and Customer First. Wants to invest more in Continuous Improvement — thinking about a course on data analytics.
+
+**Rocks:** Partner program launch is on track. Revenue Rock is ahead of target. SDR hiring Rock is behind — pipeline is thin.
+
+**Role (GWC):** Loves the role. Gets it, wants it. Feels stretched on capacity with the hiring push but managing.
+
+---
+
+## Manager Speaks (5 min)
+
+**Performance:** Strong quarter so far. Two of three Rocks on track is solid.
+
+**Wins:** Partner program launch was excellent — smooth execution, good feedback from partners.
+
+**Concerns:** SDR hiring needs attention. One hire out of two isn't enough runway for Q2 targets.
+
+---
+
+## Together (5 min)
+
+**Next Steps:**
+- Sarah to work with recruiter on expanding SDR candidate pipeline by Feb 21
+- Brad to review whether Q2 revenue target needs adjustment given SDR gap
+
+**Commitments:**
+- Sarah: Weekly SDR pipeline update to Brad every Friday
+- Brad: Approve data analytics course budget by next week
+
+---
+
+## Conversation History
+
+- 2026-02-14: 5-5-5 check-in conducted
 ```
 
 ---
@@ -1283,6 +1516,205 @@ last_reviewed: "2026-02-01"
 
 ---
 
+## LMA Assessment Format
+
+**Location:** `data/lma/firstname-lastname.md`
+
+### Frontmatter Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `person` | string | Yes | Full name of the person |
+| `seat` | string | Yes | Current seat from Accountability Chart |
+| `date` | date | Yes | Date of the initial assessment |
+| `status` | enum | Yes | Current status (see below) |
+| `leadership_score` | number or null | No | Average of 5 Leadership Practice ratings (1.0-5.0) |
+| `management_score` | number or null | No | Average of 5 Management Practice ratings (1.0-5.0) |
+| `overall_score` | number or null | No | Average of leadership and management scores |
+| `leadership_practices` | object | Yes | Ratings for 5 Leadership Practices (see below) |
+| `management_practices` | object | Yes | Ratings for 5 Management Practices (see below) |
+| `feedback` | array | No | Array of 360 feedback objects (see below) |
+| `last_assessed` | date | Yes | Date of most recent assessment |
+
+### Status Values
+
+| Value | Meaning |
+|-------|---------|
+| `active` | Assessment is current and being acted on |
+| `reviewed` | Recently reviewed, development plan updated |
+| `stale` | Has not been assessed in 120+ days |
+
+### Leadership Practices Object
+
+| Field | Practice | Description |
+|-------|----------|-------------|
+| `clear_direction` | Giving clear direction | 1-5 or null |
+| `necessary_tools` | Providing the necessary tools | 1-5 or null |
+| `letting_go` | Letting go of the vine | 1-5 or null |
+| `greater_good` | Acting with the greater good in mind | 1-5 or null |
+| `clarity_breaks` | Taking Clarity Breaks | 1-5 or null |
+
+### Management Practices Object
+
+| Field | Practice | Description |
+|-------|----------|-------------|
+| `clear_expectations` | Keeping expectations clear | 1-5 or null |
+| `communicating_well` | Communicating well | 1-5 or null |
+| `meeting_pulse` | Maintaining the right meeting pulse | 1-5 or null |
+| `quarterly_conversations` | Having quarterly conversations | 1-5 or null |
+| `rewarding_recognizing` | Rewarding and recognizing | 1-5 or null |
+
+### Feedback Object (360 Mode)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `name` | string | Respondent's name |
+| `relationship` | string | Relationship to manager (e.g., "direct report") |
+| `ratings` | array | Array of 10 integers (1-5): Leadership 1-5 then Management 1-5 |
+| `date` | date | Date feedback was collected |
+
+### Body Structure
+
+```markdown
+# [Person] — LMA Assessment
+
+**Seat:** [Seat]
+**Last Assessed:** [Date]
+**Status:** [Status]
+
+## Leadership Practices
+
+| # | Practice | Rating | Notes |
+|---|----------|--------|-------|
+| 1 | Giving clear direction | [1-5] | |
+| 2 | Providing the necessary tools | [1-5] | |
+| 3 | Letting go of the vine | [1-5] | |
+| 4 | Acting with the greater good in mind | [1-5] | |
+| 5 | Taking Clarity Breaks | [1-5] | |
+
+**Leadership Score:** [X.X]
+
+## Management Practices
+
+| # | Practice | Rating | Notes |
+|---|----------|--------|-------|
+| 1 | Keeping expectations clear | [1-5] | |
+| 2 | Communicating well | [1-5] | |
+| 3 | Maintaining the right meeting pulse | [1-5] | |
+| 4 | Having quarterly conversations | [1-5] | |
+| 5 | Rewarding and recognizing | [1-5] | |
+
+**Management Score:** [X.X]
+
+## LMA Score
+
+| Component | Score |
+|-----------|-------|
+| Leadership | [X.X] |
+| Management | [X.X] |
+| **Overall LMA** | **[X.X]** |
+
+## Flagged Practices
+[Practices scoring below 3]
+
+## 360 Feedback
+[Comparison table if 360 data exists]
+
+## Development Plan
+- [ ] [Action items]
+
+## Assessment History
+- YYYY-MM-DD: [Assessment event]
+```
+
+### Example
+
+```markdown
+---
+person: "Brad"
+seat: "Visionary"
+date: "2026-02-15"
+status: active
+leadership_score: 4.2
+management_score: 3.8
+overall_score: 4.0
+leadership_practices:
+  clear_direction: 5
+  necessary_tools: 4
+  letting_go: 4
+  greater_good: 5
+  clarity_breaks: 3
+management_practices:
+  clear_expectations: 4
+  communicating_well: 4
+  meeting_pulse: 4
+  quarterly_conversations: 4
+  rewarding_recognizing: 3
+feedback:
+  - name: "Daniel"
+    relationship: "direct report"
+    ratings: [4, 4, 5, 4, 3, 4, 4, 3, 4, 3]
+    date: "2026-02-15"
+last_assessed: "2026-02-15"
+---
+
+# Brad — LMA Assessment
+
+**Seat:** Visionary
+**Last Assessed:** 2026-02-15
+**Status:** Active
+
+---
+
+## Leadership Practices
+
+| # | Practice | Rating | Notes |
+|---|----------|--------|-------|
+| 1 | Giving clear direction | 5 | Strong vision communication to the team |
+| 2 | Providing the necessary tools | 4 | Good on tooling, could improve training |
+| 3 | Letting go of the vine | 4 | Improved since last quarter |
+| 4 | Acting with the greater good in mind | 5 | Consistently organization-first |
+| 5 | Taking Clarity Breaks | 3 | 3 breaks in 90 days — room to improve |
+
+**Leadership Score:** 4.2
+
+---
+
+## Management Practices
+
+| # | Practice | Rating | Notes |
+|---|----------|--------|-------|
+| 1 | Keeping expectations clear | 4 | Roles well-defined via AC |
+| 2 | Communicating well | 4 | Open and transparent |
+| 3 | Maintaining the right meeting pulse | 4 | 7/8 L10s in last 8 weeks |
+| 4 | Having quarterly conversations | 4 | 2 conversations this quarter |
+| 5 | Rewarding and recognizing | 3 | Need to improve recognition cadence |
+
+**Management Score:** 3.8
+
+---
+
+## LMA Score
+
+| Component | Score |
+|-----------|-------|
+| Leadership | 4.2 |
+| Management | 3.8 |
+| **Overall LMA** | **4.0** |
+
+---
+
+## Flagged Practices
+
+*No practices below 3 — all at acceptable level.*
+
+## Assessment History
+
+- 2026-02-15: Initial LMA assessment conducted
+```
+
+---
+
 ## Clarity Break Format
 
 **Location:** `data/clarity/YYYY-MM-DD.md`
@@ -1494,6 +1926,436 @@ location: "Offsite — Boulder"
 
 ---
 
+## Stack Item Format (Assistance Track)
+
+**Location:** `data/assistance/stack/stack-NNN-slug.md`
+
+### Frontmatter Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | Unique identifier (e.g., `stack-001`) |
+| `title` | string | Yes | Short description of the delegation item |
+| `from` | string | Yes | Leader adding the item to the stack |
+| `to` | string | Yes | Assistant who will handle the item |
+| `urgency` | enum | Yes | `today`, `this_week`, or `whenever` |
+| `status` | enum | Yes | Current lifecycle status (see below) |
+| `created` | date | Yes | Date the item was added to the stack |
+| `handed_off` | date | No | Date when discussed in daily meeting and handed to assistant |
+| `completed` | date | No | Date when marked done |
+
+### Status Values
+
+| Value | Meaning | Set When |
+|-------|---------|----------|
+| `pending` | On the stack, not yet handed off | Item creation |
+| `handed_off` | Discussed in daily meeting, assistant is working on it | During Daily mode |
+| `done` | Completed | During Daily or Stack mode |
+
+### Urgency Values
+
+| Value | Expected Turnaround |
+|-------|-------------------|
+| `today` | Same day |
+| `this_week` | Within the week |
+| `whenever` | No time pressure, do when convenient |
+
+### Body Structure
+
+```markdown
+# [Item Title]
+
+**From:** [Leader name]
+**To:** [Assistant name]
+**Urgency:** [today/this_week/whenever]
+**Created:** [Date]
+
+## Details
+
+[Description of the task or item being delegated]
+
+## Notes
+
+[Any context, background, or special instructions]
+
+## Outcome
+
+[Filled in when status changes to done — what happened, any follow-up needed]
+```
+
+### Example Frontmatter
+
+```yaml
+---
+id: "stack-003"
+title: "Schedule board meeting"
+from: "Brad Feld"
+to: "Sarah Chen"
+urgency: this_week
+status: pending
+created: "2026-02-16"
+handed_off: null
+completed: null
+---
+```
+
+---
+
+## Daily Meeting Log Format (Assistance Track)
+
+**Location:** `data/assistance/daily/YYYY-MM-DD.md`
+
+### Frontmatter Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `date` | date | Yes | Meeting date |
+| `leader` | string | Yes | Leader in the meeting |
+| `assistant` | string | Yes | Assistant in the meeting |
+| `items_reviewed` | integer | Yes | Number of stack items discussed |
+| `items_handed_off` | integer | Yes | Number of items handed off in this meeting |
+| `items_completed` | integer | Yes | Number of items marked done |
+| `duration_minutes` | integer | No | Approximate meeting duration |
+
+### Body Structure
+
+```markdown
+# Daily Standup — [Date]
+
+**Leader:** [Name]
+**Assistant:** [Name]
+
+---
+
+## Stack Review
+
+| # | Item | Urgency | Decision | Notes |
+|---|------|---------|----------|-------|
+| 1 | [Stack item title] | [urgency] | [hand_off/defer/done] | [Context] |
+
+---
+
+## New Items Added
+
+| # | Item | Urgency | Assigned To | Notes |
+|---|------|---------|-------------|-------|
+| 1 | [New item] | [urgency] | [Person] | [Context] |
+
+---
+
+## Action Items
+
+- [ ] [Action item with owner]
+
+---
+
+## Meeting Notes
+
+[Additional discussion, observations, or follow-up]
+```
+
+### Example Frontmatter
+
+```yaml
+---
+date: "2026-02-16"
+leader: "Brad Feld"
+assistant: "Sarah Chen"
+items_reviewed: 5
+items_handed_off: 3
+items_completed: 1
+duration_minutes: 12
+---
+```
+
+---
+
+## Cash Flow Assessment Format
+
+**Location:** `data/cashflow/YYYY-MM-DD-assessment.md`
+
+### Frontmatter Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `date` | date | Yes | Date of the assessment |
+| `participants` | list | Yes | Array of participant names |
+| `status` | enum | Yes | Current status (see below) |
+| `overall_summary` | string | No | Brief summary of cash flow health |
+| `drivers` | object | Yes | Object containing 8 driver sub-objects (see Driver Object below) |
+
+### Driver Object
+
+Each of the 8 drivers (`price`, `volume`, `cogs_margin`, `ar_days`, `ap_days`, `inventory_wip`, `opex`, `debt_structure`) contains:
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `current_state` | string | Yes | Description of current state for this driver |
+| `potential` | enum | Yes | Improvement potential (see below) |
+| `owner` | string | Yes | Person responsible for this driver |
+| `baseline_metric` | string | Yes | Current measurement (stored as string, not number) |
+| `target_metric` | string | Yes | Target measurement to achieve |
+| `priority_rank` | integer or null | No | Priority ranking (1 = highest priority), null if not prioritized |
+| `notes` | string | No | Additional context or observations |
+
+### Potential Values
+
+| Value | Meaning |
+|-------|---------|
+| `high` | Significant improvement opportunity |
+| `medium` | Moderate improvement opportunity |
+| `low` | Minor improvement opportunity |
+| `none` | No meaningful improvement available |
+
+### Status Values
+
+| Value | Meaning |
+|-------|---------|
+| `in_progress` | Assessment started but not yet complete |
+| `complete` | All 8 drivers assessed and prioritized |
+
+### Body Structure
+
+```markdown
+# Cash Flow Assessment — YYYY-MM-DD
+
+## Driver Summary
+
+| # | Driver | Potential | Owner | Baseline | Target | Priority |
+|---|--------|-----------|-------|----------|--------|----------|
+| 1 | Price | [potential] | [owner] | [baseline] | [target] | [rank or —] |
+| ... | ... | ... | ... | ... | ... | ... |
+
+## 1. Price
+**Current State:** [Description]
+**Improvement Potential:** [high/medium/low/none]
+**Baseline:** [Current metric]
+**Target:** [Target metric]
+**Owner:** [Name]
+
+[Repeat for all 8 drivers]
+
+## Action Plan
+
+| Action | Driver | Owner | Timeline | Status |
+|--------|--------|-------|----------|--------|
+```
+
+### Example
+
+```markdown
+---
+date: "2026-02-16"
+participants:
+  - "Brad"
+  - "Daniel"
+status: complete
+overall_summary: "Strong pricing power and margin opportunity. AR days are the biggest quick win."
+drivers:
+  price:
+    current_state: "Haven't raised prices in 12 months"
+    potential: high
+    owner: "Daniel"
+    baseline_metric: "$29/mo average"
+    target_metric: "$39/mo average"
+    priority_rank: 2
+    notes: "Competitor pricing supports a higher tier"
+  volume:
+    current_state: "30 alpha users, growing steadily"
+    potential: medium
+    owner: "Daniel"
+    baseline_metric: "30 users"
+    target_metric: "100 users by Q2"
+    priority_rank: 3
+    notes: ""
+  cogs_margin:
+    current_state: "AI API costs are primary COGS"
+    potential: medium
+    owner: "Brad"
+    baseline_metric: "62% gross margin"
+    target_metric: "75% gross margin"
+    priority_rank: null
+    notes: "Haiku migration will reduce costs significantly"
+  ar_days:
+    current_state: "All prepaid subscriptions, no AR issues"
+    potential: none
+    owner: "Brad"
+    baseline_metric: "0 days"
+    target_metric: "0 days"
+    priority_rank: null
+    notes: "SaaS model eliminates AR risk"
+  ap_days:
+    current_state: "Monthly billing on most vendors"
+    potential: low
+    owner: "Brad"
+    baseline_metric: "Net 30"
+    target_metric: "Net 30"
+    priority_rank: null
+    notes: ""
+  inventory_wip:
+    current_state: "No physical inventory"
+    potential: none
+    owner: "Brad"
+    baseline_metric: "N/A"
+    target_metric: "N/A"
+    priority_rank: null
+    notes: "SaaS — not applicable"
+  opex:
+    current_state: "Lean two-person team, infrastructure costs growing"
+    potential: low
+    owner: "Brad"
+    baseline_metric: "$8K/mo"
+    target_metric: "$7K/mo"
+    priority_rank: null
+    notes: "Optimize Vercel and Supabase tiers"
+  debt_structure:
+    current_state: "No debt, self-funded"
+    potential: none
+    owner: "Brad"
+    baseline_metric: "0 debt"
+    target_metric: "0 debt"
+    priority_rank: null
+    notes: ""
+---
+
+# Cash Flow Assessment — 2026-02-16
+
+## Driver Summary
+
+| # | Driver | Potential | Owner | Baseline | Target | Priority |
+|---|--------|-----------|-------|----------|--------|----------|
+| 1 | Price | high | Daniel | $29/mo avg | $39/mo avg | 2 |
+| 2 | Volume | medium | Daniel | 30 users | 100 users | 3 |
+| 3 | COGS/Margin | medium | Brad | 62% margin | 75% margin | — |
+| 4 | AR Days | none | Brad | 0 days | 0 days | — |
+| 5 | AP Days | low | Brad | Net 30 | Net 30 | — |
+| 6 | Inventory/WIP | none | Brad | N/A | N/A | — |
+| 7 | OpEx | low | Brad | $8K/mo | $7K/mo | — |
+| 8 | Debt Structure | none | Brad | 0 debt | 0 debt | — |
+
+## 1. Price
+**Current State:** Haven't raised prices in 12 months
+**Improvement Potential:** high
+**Baseline:** $29/mo average
+**Target:** $39/mo average
+**Owner:** Daniel
+
+## Action Plan
+
+| Action | Driver | Owner | Timeline | Status |
+|--------|--------|-------|----------|--------|
+| Research competitor pricing tiers | Price | Daniel | 2026-02-28 | [ ] |
+| Plan Haiku migration for AI calls | COGS/Margin | Brad | 2026-03-15 | [ ] |
+```
+
+---
+
+## Trust Exercise Format
+
+**Location:** `data/trust/YYYY-MM-DD-exercise-slug.md`
+
+### Frontmatter Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `date` | date | Yes | Date the exercise was conducted |
+| `exercise_number` | integer | Yes | Exercise number in the 10-exercise progression (1-10) |
+| `exercise_name` | string | Yes | Name of the exercise (e.g., `"Personal Histories"`) |
+| `participants` | list | Yes | Array of participant names |
+| `facilitator` | string | Yes | Person who led the exercise |
+| `duration_minutes` | integer | No | Actual duration of the exercise |
+| `vulnerability_level` | enum | Yes | Exercise vulnerability level (see below) |
+| `status` | enum | Yes | Current status (see below) |
+
+### Vulnerability Level Values
+
+| Value | Meaning | Exercises |
+|-------|---------|-----------|
+| `low` | Minimal personal exposure | 1 (Personal Histories), 2 (DISC/Kolbe) |
+| `medium` | Moderate personal sharing | 3 (Lifeline), 4 (One Thing), 5 (Feedback Round), 6 (Strengths Spotlight), 7 (Conflict Norms) |
+| `high` | Deep personal vulnerability | 8 (Accountability Partners), 9 (Team Effectiveness), 10 (Vulnerability Circle) |
+
+### Status Values
+
+| Value | Meaning |
+|-------|---------|
+| `completed` | Exercise has been fully conducted |
+| `scheduled` | Exercise is planned but not yet conducted |
+
+### Body Structure
+
+```markdown
+# [Exercise Name] — Trust Exercise #[N]
+
+**Date:** YYYY-MM-DD
+**Facilitator:** [Name]
+**Participants:** [Name 1], [Name 2], ...
+
+---
+
+## Exercise Summary
+
+[Description of what happened during the exercise]
+
+## Key Takeaways
+
+- [Insight or observation from the exercise]
+- [Team dynamic that emerged]
+
+## Action Items
+
+- [ ] [Follow-up action if applicable]
+
+## Notes
+
+- YYYY-MM-DD: Exercise conducted
+```
+
+### Example
+
+```markdown
+---
+date: "2026-02-16"
+exercise_number: 1
+exercise_name: "Personal Histories"
+participants:
+  - "Brad"
+  - "Daniel"
+facilitator: "Brad"
+duration_minutes: 30
+vulnerability_level: low
+status: completed
+---
+
+# Personal Histories — Trust Exercise #1
+
+**Date:** 2026-02-16
+**Facilitator:** Brad
+**Participants:** Brad, Daniel
+
+---
+
+## Exercise Summary
+
+Each team member shared answers to 5 personal history questions: hometown, number of siblings, childhood hobbies, biggest challenge growing up, and first job. Both participants engaged openly and discovered common ground in early career experiences.
+
+## Key Takeaways
+
+- Shared experience of growing up in small towns built immediate connection
+- First jobs in service industry gave both a customer-first perspective
+- Exercise felt natural and comfortable — good foundation for deeper exercises
+
+## Action Items
+
+- [ ] Schedule Exercise 2 (DISC/Kolbe Sharing) for ~30 days from now
+
+## Notes
+
+- 2026-02-16: Exercise conducted as first trust-building activity
+```
+
+---
+
 ## Directory Structure
 
 ```
@@ -1539,6 +2401,15 @@ data/
 ├── annual/
 │   ├── 2025-planning.md
 │   └── 2026-planning.md
+├── assistance/
+│   ├── stack/
+│   │   ├── stack-001-schedule-board-meeting.md
+│   │   ├── stack-002-order-office-supplies.md
+│   │   └── stack-003-book-travel.md
+│   └── daily/
+│       ├── 2026-02-14.md
+│       ├── 2026-02-15.md
+│       └── 2026-02-16.md
 ├── quarterly/
 │   ├── 2026-Q1-planning.md
 │   └── 2026-Q2-planning.md
@@ -1548,6 +2419,12 @@ data/
 ├── delegate/
 │   ├── brad.md
 │   └── sarah-chen.md
+├── cashflow/
+│   ├── 2026-02-16-assessment.md
+│   └── 2026-04-01-assessment.md
+├── trust/
+│   ├── 2026-02-16-personal-histories.md
+│   └── 2026-03-15-disc-kolbe-sharing.md
 ├── clarity/
 │   ├── 2026-02-10.md
 │   └── 2026-02-15.md
@@ -1577,6 +2454,10 @@ data/
 - **Quarterly planning** uses quarter: `data/quarterly/YYYY-QN-planning.md`
 - **Checkups** use date: `data/checkups/YYYY-MM-DD.md`
 - **Delegate and Elevate** are one file per person: `data/delegate/firstname-lastname.md`
+- **Assistance Stack** items are one file per item: `data/assistance/stack/stack-NNN-slug.md` (completed items stay in place with `status: done`)
+- **Assistance Daily** meetings use date: `data/assistance/daily/YYYY-MM-DD.md`
+- **Cash flow assessments** use date: `data/cashflow/YYYY-MM-DD-assessment.md`
+- **Trust exercises** use date-slug: `data/trust/YYYY-MM-DD-exercise-slug.md`
 - **Clarity breaks** use date: `data/clarity/YYYY-MM-DD.md` (suffix `-2`, `-3` for multiples per day)
 - **Kickoff sessions** use type-date: `data/meetings/kickoff/focus-day-YYYY-MM-DD.md`
 - **Processes** are per-process files: `data/processes/core-process-name.md`
