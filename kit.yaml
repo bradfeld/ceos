@@ -1,0 +1,23 @@
+# Kit Contract v1 — CEOS's conforming kit manifest (CEO-49).
+# Normative schema: authoros contract/kit.schema.md; normative contract:
+# authoros contract/KIT-CONTRACT.md (AOS-48). The contract is the INTERFACE —
+# CEOS's standalone installer (setup.sh) and publish.sh public-export flow
+# stay its own implementation.
+contract_version: 1
+kit:
+  id: ceos
+  name: "CEOS"
+  version: 1.0.0            # first versioned release marker (kit predates the contract)
+  repo: https://github.com/bradfeld/ceos.git   # canonical PUBLIC clone URL (publish.sh syncs from the private source repo)
+commands:
+  invocation: "ceos-* skills (Claude-interpreted; see skills/ and README.md)"
+installer:
+  entry: setup.sh
+  args: "run from the cloned repo root"
+capabilities_required: []   # standalone-only today — no hosted-agent tier
+# No tenant_manifest block: CEOS has no tenant model — a CEO clones the kit directly.
+delivery:
+  notes: >-
+    Standalone-tier kit: a CEO clones kit.repo and runs setup.sh directly. If a
+    hosted CEOS agent ever ships, delivery follows the Kit Contract v1 mechanism
+    (authoros contract/KIT-CONTRACT.md, "Delivery (v1 mechanism)").

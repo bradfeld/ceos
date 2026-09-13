@@ -1,6 +1,6 @@
 ---
 date: "{{date}}"
-attendees: [{{team_members}}]
+attendees: "{{attendees}}"
 rating: null
 ---
 
