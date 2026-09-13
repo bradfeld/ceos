@@ -307,6 +307,7 @@ init() {
     mkdir -p "$CEOS_ROOT/data/lma"
     mkdir -p "$CEOS_ROOT/data/trust"
     mkdir -p "$CEOS_ROOT/data/cashflow"
+    mkdir -p "$CEOS_ROOT/data/calendar"
 
     # ── Copy and substitute templates ──
 
@@ -318,6 +319,9 @@ init() {
 
     substitute "$CEOS_ROOT/templates/scorecard-metrics.md" "$CEOS_ROOT/data/scorecard/metrics.md"
     echo "  [created] data/scorecard/metrics.md"
+
+    substitute "$CEOS_ROOT/templates/calendar-events.md" "$CEOS_ROOT/data/calendar/events.md"
+    echo "  [created] data/calendar/events.md"
 
     echo ""
     echo "─────────────────────────────────────────────────"
