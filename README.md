@@ -25,7 +25,7 @@ claude
 > "Let's set our quarterly rocks"
 ```
 
-## The 20 Skills
+## The 23 Skills
 
 | Skill | What It Does | Try Saying... |
 |-------|-------------|---------------|
@@ -49,6 +49,9 @@ claude
 | **ceos-cashflow** | The 8 Cash Flow Drivers — financial levers behind cash and profitability | "Assess our cash flow" or "Where can we improve margins?" |
 | **ceos-trust** | Trust Builders — vulnerability-based trust exercises for the leadership team | "Build team trust" or "What trust exercise is next?" |
 | **ceos-assistance** | The Stack — daily operational delegation and leader-assistant standups | "Add to the stack" or "Run the daily meeting" |
+| **ceos-calendar** | Market Calendar — rolling view of conferences, launches, and milestones | "Show the calendar" or "Add a conference to the calendar" |
+| **ceos-trends** | EOS Health Trends — Rock, scorecard, and checkup progression over time | "How are we trending?" or "Are we improving?" |
+| **ceos-dashboard** | EOS Dashboard — snapshot of business health across all components | "Show me the dashboard" or "How are we doing?" |
 
 ## How It Works
 
