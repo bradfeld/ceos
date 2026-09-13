@@ -118,7 +118,21 @@ For each Rock, collect:
 
 #### Step 5: Generate the ID
 
-Read existing Rock files in the quarter directory. Find the highest `rock-NNN` ID and increment. If no files exist, start at `rock-001`.
+Read existing Rock files across **every** quarter directory under `data/rocks/`. Find the highest `rock-NNN` ID and increment. If no Rock files exist anywhere, start at `rock-001`.
+
+- **Rock IDs are globally sequential across quarters.** Numeric IDs run sequentially across the whole repository rather than resetting each quarter, so a new quarter continues from the highest existing ID. This avoids collisions and keeps a Rock reference stable no matter which quarter it came from.
+
+  ```
+  // Good
+    # After Q1 has rock-001 through rock-007:
+    data/rocks/2026-Q2/rock-008-launch-beta.md
+    data/rocks/2026-Q2/rock-009-hire-vp-sales.md
+
+  // Bad
+    # Don't restart numbering each quarter:
+    data/rocks/2026-Q2/rock-001-launch-beta.md
+    data/rocks/2026-Q2/rock-002-hire-vp-sales.md
+  ```
 
 #### Step 6: Write the File
 
@@ -198,6 +212,40 @@ For each Rock, ask: **"Complete or incomplete?"**
 - EOS scoring is binary. No partial credit. The measurable outcome was either achieved or it wasn't.
 - Update status to `complete` or `dropped` (if the Rock was abandoned or deprioritized)
 - A Rock that was worked on but not finished gets `dropped` — it can become a new Rock next quarter
+
+- **Append a timestamped entry to the Notes section.** Whenever a rock file is created or updated, add a dated line to its Notes section, in the form `- YYYY-MM-DD: [what happened]`. At end-of-quarter scoring, append a scoring entry rather than only flipping the frontmatter status. The result is an audit trail inside each file, so the history of a Rock is readable without consulting git.
+
+  ```
+  // Good
+    ## Notes
+
+    *Track progress, blockers, and context here during the quarter.*
+
+    - 2026-02-15: Rock created for 2026-Q1
+    - 2026-04-03: Q1 scoring — dropped
+
+  // Bad
+    ## Notes
+
+    *Track progress, blockers, and context here during the quarter.*
+
+    - 2026-02-15: Rock created for 2026-Q1
+    # (status changed to dropped, but no scoring entry was added)
+  ```
+
+- **Use `dropped`, not `not_done`, for a Rock abandoned as no longer a priority.** The two are not interchangeable. `not_done` means the Rock was pursued and missed; `dropped` means it stopped being relevant or was re-scoped away — a deliberate deprioritization. Scoring an abandoned Rock as `not_done` reads as a failure to deliver and loses the signal that the team chose to stop. Keep the quarterly planning doc's scorecard table using the same word as the rock file.
+
+  ```
+  // Good
+    # Rock intentionally abandoned after re-scoping:
+    status: dropped
+    # In Notes:
+    - 2026-04-03: Q1 scoring — dropped
+
+  // Bad
+    # Same Rock, recorded as merely incomplete:
+    status: not_done
+  ```
 
 #### Step 3: Show the diff for each status change, ask for approval.
 

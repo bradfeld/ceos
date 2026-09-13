@@ -454,6 +454,17 @@ If yes, write the summary. If a planning file already exists for this quarter, a
 - **3-7 Rocks per person.** Flag if anyone has fewer than 3 or more than 7 Rocks. This is a guideline, not a hard rule, but deviations should be conscious decisions.
 - **Don't skip sections in Plan mode.** Walk through all 6 sections. If the user wants to skip a section, note it in the file: "Section X: Skipped per team decision."
 - **Finalize Rock scores.** In Section 1, Rocks that are still `on_track` or `off_track` must be scored as `complete` or `dropped`. The outgoing quarter needs closure.
+- **The planning doc and the rock files must stay in sync.** When Rocks are scored or created, the change belongs in both places: the `status` field in the individual rock file's frontmatter, and the rock scorecard table in the quarterly planning document. When one person updates the rock files and another updates the planning doc, a reconciliation pass is needed to bring them back into alignment. The planning doc is the consolidated narrative view; the rock files are the source of truth for status.
+
+  ```
+  // Good
+    # First change: set rock-001 status to 'dropped' in its frontmatter
+    # Second change: update the Q1 planning doc table to show 'Dropped', matching the rock file
+
+  // Bad
+    # Updating the planning doc table without changing the rock file's frontmatter status
+    # Or: updating the rock file's status without reflecting it in the planning doc
+  ```
 
 ## Integration Notes
 
