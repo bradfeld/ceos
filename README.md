@@ -25,7 +25,7 @@ claude
 > "Let's set our quarterly rocks"
 ```
 
-## The 16 Skills
+## The 20 Skills
 
 | Skill | What It Does | Try Saying... |
 |-------|-------------|---------------|
@@ -45,6 +45,10 @@ claude
 | **ceos-delegate** | Delegate and Elevate — 4-quadrant task audit for leadership focus | "Run delegate and elevate for Brad" or "What should I be delegating?" |
 | **ceos-clarity** | Clarity Break — scheduled strategic thinking time away from day-to-day | "Take a clarity break" or "Show clarity break history" |
 | **ceos-kickoff** | EOS Kickoff — Focus Day, Vision Building Day 1, Vision Building Day 2 | "Run our Focus Day" or "Start EOS implementation" |
+| **ceos-lma** | Leadership + Management = Accountability — assess how you lead and manage | "Run LMA assessment" or "How am I doing as a manager?" |
+| **ceos-cashflow** | The 8 Cash Flow Drivers — financial levers behind cash and profitability | "Assess our cash flow" or "Where can we improve margins?" |
+| **ceos-trust** | Trust Builders — vulnerability-based trust exercises for the leadership team | "Build team trust" or "What trust exercise is next?" |
+| **ceos-assistance** | The Stack — daily operational delegation and leader-assistant standups | "Add to the stack" or "Run the daily meeting" |
 
 ## How It Works
 
