@@ -1,6 +1,6 @@
 # CEOS
 
-**Run EOS with AI.** CEOS brings the [Entrepreneurial Operating System](https://www.eosworldwide.com/) to [Claude Code](https://docs.anthropic.com/en/docs/claude-code), giving your leadership team 16 AI-powered skills for Vision, Accountability Chart, Rocks, Scorecard, L10 Meetings, IDS, To-Dos, Process, People Analyzer, Quarterly Conversations, Annual Planning, Quarterly Planning, Organizational Checkup, Delegate and Elevate, Clarity Break, and EOS Kickoff.
+**Run EOS with AI.** CEOS brings the [Entrepreneurial Operating System](https://www.eosworldwide.com/) to [Claude Code](https://docs.anthropic.com/en/docs/claude-code), giving your leadership team 23 AI-powered skills for Vision, Accountability Chart, Rocks, Scorecard, L10 Meetings, IDS, To-Dos, Process, People Analyzer, Quarterly Conversations, Annual Planning, Quarterly Planning, Organizational Checkup, Delegate and Elevate, Clarity Break, EOS Kickoff, LMA Assessment, the 8 Cash Flow Drivers, Trust Builders, the Assistance Stack, Market Calendar, EOS Health Trends, and the EOS Dashboard.
 
 Clone. Setup. Run your business.
 
@@ -38,7 +38,7 @@ claude
 | **ceos-todos** | To-Do Tracking — actions with owners, deadlines, and completion rates | "Show my to-dos" or "To-do completion rate" |
 | **ceos-process** | Core Processes — document, simplify, and track followability | "Document our sales process" or "Audit process FBA scores" |
 | **ceos-people** | People Analyzer — right people, right seats (Core Values + GWC) | "Evaluate Brad" or "Quarterly people review" |
-| **ceos-quarterly** | Quarterly Conversations — formal manager/direct report check-ins | "Run quarterly conversation for Brad" or "Schedule quarterly conversations" |
+| **ceos-quarterly** | Quarterly Conversations & 5-5-5 — formal check-ins plus a lightweight 15-minute version | "Run quarterly conversation for Brad", "5-5-5 with Sarah", or "Schedule quarterly conversations" |
 | **ceos-annual** | Annual Planning — year-end V/TO refresh and Rock setting | "Plan next year" or "Review 2025" or "Refresh our vision" |
 | **ceos-quarterly-planning** | Quarterly Planning — structured quarterly offsite for the leadership team | "Run quarterly planning" or "Start our quarterly session" |
 | **ceos-checkup** | Organizational Checkup — 20-question health assessment across Six Key Components | "Run an organizational checkup" or "How healthy is our organization?" |
@@ -57,7 +57,7 @@ claude
 
 ```
 ┌─────────────────────────────────┐
-│  skills/ceos-*/SKILL.md         │  ← Claude Code skills (16 EOS tools)
+│  skills/ceos-*/SKILL.md         │  ← Claude Code skills (23 EOS tools)
 ├─────────────────────────────────┤
 │  data/ + templates/             │  ← Your EOS data (markdown files)
 │  (markdown + YAML frontmatter)  │     Human-readable, git-tracked
