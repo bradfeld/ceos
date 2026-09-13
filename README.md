@@ -1,6 +1,6 @@
 # CEOS
 
-**Run EOS with AI.** CEOS brings the [Entrepreneurial Operating System](https://www.eosworldwide.com/) to [Claude Code](https://docs.anthropic.com/en/docs/claude-code), giving your leadership team 23 AI-powered skills for Vision, Accountability Chart, Rocks, Scorecard, L10 Meetings, IDS, To-Dos, Process, People Analyzer, Quarterly Conversations, Annual Planning, Quarterly Planning, Organizational Checkup, Delegate and Elevate, Clarity Break, EOS Kickoff, LMA Assessment, the 8 Cash Flow Drivers, Trust Builders, the Assistance Stack, Market Calendar, EOS Health Trends, and the EOS Dashboard.
+**Run EOS with AI.** CEOS brings the [Entrepreneurial Operating System](https://www.eosworldwide.com/) to [Claude Code](https://docs.anthropic.com/en/docs/claude-code), giving your leadership team 23 AI-powered skills for Vision, Accountability Chart, Rocks, Scorecard, L10 Meetings, IDS, To-Dos, Process, People Analyzer, Quarterly Conversations, Annual Planning, Quarterly Planning, Organizational Checkup, Delegate and Elevate, Clarity Break, EOS Kickoff, LMA Assessment, the 8 Cash Flow Drivers, Trust Builders, The Assistance Track, Market Calendar, EOS Health Trends, and the EOS Dashboard.
 
 Clone. Setup. Run your business.
 
@@ -45,10 +45,10 @@ claude
 | **ceos-delegate** | Delegate and Elevate — 4-quadrant task audit for leadership focus | "Run delegate and elevate for Brad" or "What should I be delegating?" |
 | **ceos-clarity** | Clarity Break — scheduled strategic thinking time away from day-to-day | "Take a clarity break" or "Show clarity break history" |
 | **ceos-kickoff** | EOS Kickoff — Focus Day, Vision Building Day 1, Vision Building Day 2 | "Run our Focus Day" or "Start EOS implementation" |
-| **ceos-lma** | Leadership + Management = Accountability — assess how you lead and manage | "Run LMA assessment" or "How am I doing as a manager?" |
-| **ceos-cashflow** | The 8 Cash Flow Drivers — financial levers behind cash and profitability | "Assess our cash flow" or "Where can we improve margins?" |
-| **ceos-trust** | Trust Builders — vulnerability-based trust exercises for the leadership team | "Build team trust" or "What trust exercise is next?" |
-| **ceos-assistance** | The Stack — daily operational delegation and leader-assistant standups | "Add to the stack" or "Run the daily meeting" |
+| **ceos-lma** | LMA Assessment — Leadership + Management = Accountability self-assessment | "Run LMA for Brad" or "How am I doing as a leader?" |
+| **ceos-cashflow** | The 8 Cash Flow Drivers — assess and optimize the financial levers that impact cash flow | "Assess our cash flow" or "Review cash flow drivers" |
+| **ceos-trust** | Trust Builders — 10 quarterly exercises for vulnerability-based team trust | "Build team trust" or "Run the next trust exercise" |
+| **ceos-assistance** | The Assistance Track — daily delegation queue and leader-assistant standups | "Add to the stack" or "Run the daily meeting" |
 | **ceos-calendar** | Market Calendar — rolling view of conferences, launches, and milestones | "Show the calendar" or "Add a conference to the calendar" |
 | **ceos-trends** | EOS Health Trends — Rock, scorecard, and checkup progression over time | "How are we trending?" or "Are we improving?" |
 | **ceos-dashboard** | EOS Dashboard — snapshot of business health across all components | "Show me the dashboard" or "How are we doing?" |
