@@ -302,6 +302,11 @@ init() {
     mkdir -p "$CEOS_ROOT/data/checkups"
     mkdir -p "$CEOS_ROOT/data/delegate"
     mkdir -p "$CEOS_ROOT/data/clarity"
+    mkdir -p "$CEOS_ROOT/data/assistance/stack"
+    mkdir -p "$CEOS_ROOT/data/assistance/daily"
+    mkdir -p "$CEOS_ROOT/data/lma"
+    mkdir -p "$CEOS_ROOT/data/trust"
+    mkdir -p "$CEOS_ROOT/data/cashflow"
 
     # ── Copy and substitute templates ──
 
