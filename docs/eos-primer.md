@@ -19,11 +19,11 @@ EOS organizes everything into 6 key components. CEOS implements tools for all of
 | Component | What It Means | CEOS Skills |
 |-----------|--------------|-------------|
 | **Vision** | Where are we going? Get everyone aligned on the destination. | `ceos-vto`, `ceos-annual` |
-| **People** | Right people in the right seats. | `ceos-accountability`, `ceos-people`, `ceos-quarterly`, `ceos-delegate` |
-| **Data** | Run the business on facts, not feelings. Track weekly numbers. | `ceos-scorecard`, `ceos-checkup` |
+| **People** | Right people in the right seats. | `ceos-accountability`, `ceos-people`, `ceos-quarterly`, `ceos-delegate`, `ceos-lma`, `ceos-trust` |
+| **Data** | Run the business on facts, not feelings. Track weekly numbers. | `ceos-scorecard`, `ceos-checkup`, `ceos-cashflow`, `ceos-dashboard` |
 | **Issues** | Surface problems. Solve them systematically. | `ceos-ids` |
 | **Process** | Document your core processes so they're consistent. | `ceos-process` |
-| **Traction** | Execute on priorities. Rocks + meetings = accountability. | `ceos-rocks`, `ceos-l10`, `ceos-kickoff`, `ceos-quarterly-planning`, `ceos-todos`, `ceos-clarity` |
+| **Traction** | Execute on priorities. Rocks + meetings = accountability. | `ceos-rocks`, `ceos-l10`, `ceos-kickoff`, `ceos-quarterly-planning`, `ceos-todos`, `ceos-clarity`, `ceos-assistance` |
 
 ## EOS Terminology
 
@@ -46,6 +46,7 @@ If you see these terms in the codebase, here's what they mean:
 | **Issues List** | Running list of problems to solve during L10 meetings | `data/issues/open/` |
 | **To-Do** | A specific action with an owner and 7-day due date | Created during IDS Solve stage |
 | **Leading Indicator** | An activity metric (calls made) vs a result metric (revenue) | Preferred in Scorecard |
+| **5-5-5** | A 15-minute quick check-in: 5 min Employee Speaks, 5 min Manager Speaks, 5 min Together. Lightweight version of the Quarterly Conversation covering Core Values, Rocks, and GWC | `data/conversations/YYYY-QN/*-quick.md` |
 
 ## Why Markdown + YAML?
 

@@ -25,7 +25,7 @@ created: "{{date}}"
 
 ## Owner
 
-**{{owner}}** is accountable for this process being documented, simplified, and followed by all.
+**[name]** is accountable for this process being documented, simplified, and followed by all.
 
 ## Audit History
 

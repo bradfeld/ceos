@@ -682,20 +682,22 @@ Claude reads data/processes/ and shows:
 
 ---
 
-## ceos-quarterly — Quarterly Conversations
+## ceos-quarterly — Quarterly Conversations & 5-5-5
 
-Facilitate the EOS Quarterly Conversation — the formal quarterly check-in between each manager and their direct reports. This is a two-way conversation about alignment, role satisfaction, and obstacles — not a performance review.
+Facilitate the EOS Quarterly Conversation — the formal quarterly check-in between each manager and their direct reports — or the 5-5-5, a lightweight 15-minute version. Both are two-way conversations about alignment, role satisfaction, and obstacles — not performance reviews.
 
 **Not to be confused with** `ceos-quarterly-planning`, which is the team planning session. `ceos-quarterly` is the 1-on-1 conversation.
 
 ### When to Use
 
 - "Run quarterly conversation for [person]"
+- "5-5-5 with [person]" or "quick quarterly check-in"
+- "Quick conversation with [person]" or "quick check-in"
 - "Schedule quarterly conversations" or "who needs a quarterly?"
 - "Review conversation history for [person]"
 - "Quarterly one-on-one" or "manager check-in"
 
-### The 5-Point Agenda
+### The 5-Point Agenda (Full Conversation)
 
 | # | Section | Focus |
 |---|---------|-------|
@@ -705,15 +707,49 @@ Facilitate the EOS Quarterly Conversation — the formal quarterly check-in betw
 | 4 | Role Expectations | Are roles clear and being met? |
 | 5 | Feedback Both Ways | What's working? What's not? |
 
-### Three Modes
+### The 5-5-5 Format (Quick Check-In)
+
+| # | Section | Duration | Focus |
+|---|---------|----------|-------|
+| 1 | Employee Speaks | 5 min | Core Values, Rocks, Role (GWC) |
+| 2 | Manager Speaks | 5 min | Performance, Wins, Concerns |
+| 3 | Together | 5 min | Next Steps, Commitments |
+
+### Four Modes
 
 | Mode | What Happens |
 |------|-------------|
-| **Facilitate** | Walk through the 5-point agenda for a specific person. Pulls Core Values from vision.md, seat from accountability.md, Rocks from rocks/, and People Analyzer from people/. Records the full conversation |
-| **Schedule** | Maps every seat on the Accountability Chart to show which conversations are done and which are pending. Shows progress percentage |
-| **Review** | View conversation history for a person (across quarters) or the full team (one quarter). Shows CV ratings, GWC status, and Rock completion trends |
+| **Facilitate** | Walk through the 5-point agenda for a specific person (30-60 min). Pulls context from vision.md, accountability.md, rocks/, and people/. Records the full conversation |
+| **Quick** | Walk through the 5-5-5 format for a specific person (15 min). Same context gathering, lighter output. No formal scoring. Records a quick check-in |
+| **Schedule** | Maps every seat on the Accountability Chart to show which conversations are done and which are pending. Shows both full and quick conversations. Flags persons with only quick check-ins |
+| **Review** | View conversation history for a person or team. Shows Type column (Full/Quick). Quick entries show `--` for scoring columns. Flags persons needing full conversations |
 
-### Example
+### Examples
+
+```
+You: "5-5-5 with Sarah Chen"
+
+Claude gathers context (vision.md, accountability.md, rocks/) and walks through:
+
+  5-5-5 Quick Check-In — Sarah Chen
+  Quarter: 2026-Q1 | Manager: Brad
+
+  ## Employee Speaks (5 min)
+  Core Values: [prompts for input]
+  Rocks: [shows current Rocks, prompts for status]
+  Role (GWC): [prompts for how they feel about their seat]
+
+  ## Manager Speaks (5 min)
+  Performance: [prompts]
+  Wins: [prompts]
+  Concerns: [prompts]
+
+  ## Together (5 min)
+  Next Steps: [prompts for agreed actions]
+  Commitments: [prompts]
+
+  Save to data/conversations/2026-Q1/sarah-chen-quick.md?
+```
 
 ```
 You: "Schedule quarterly conversations"
@@ -722,26 +758,27 @@ Claude reads data/accountability.md and data/conversations/2026-Q1/:
 
   Quarterly Conversations — 2026-Q1
   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  | Manager | Direct Report | Seat       | Status  |
-  |---------|---------------|------------|---------|
-  | Brad    | Sarah Chen    | Integrator | ✓ Done  |
-  | Brad    | Mike Torres   | VP Sales   | Pending |
-  | Brad    | Alex Kim      | VP Eng     | Pending |
+  | Manager | Direct Report | Seat       | Status       |
+  |---------|---------------|------------|--------------|
+  | Brad    | Sarah Chen    | Integrator | Done + Quick |
+  | Brad    | Mike Torres   | VP Sales   | Quick only   |
+  | Brad    | Alex Kim      | VP Eng     | Pending      |
 
-  Progress: 1/3 conversations complete (33%)
-  Would you like to start a conversation?
+  Progress: 1/3 full conversations complete (33%)
+  Note: Mike Torres has a 5-5-5 but still needs a full conversation.
 ```
 
 ### Files
 
 | File | Purpose |
 |------|---------|
-| `data/conversations/YYYY-QN/` | Conversation files by quarter |
+| `data/conversations/YYYY-QN/` | Conversation files by quarter (full and quick) |
 | `data/vision.md` | Core Values source (read-only) |
 | `data/accountability.md` | Seats and reporting structure (read-only) |
 | `data/rocks/YYYY-QN/` | Rock files for the quarter (read-only) |
 | `data/people/` | People Analyzer evaluations (read-only) |
-| `templates/quarterly-conversation.md` | Template for new conversations |
+| `templates/quarterly-conversation.md` | Template for full conversations |
+| `templates/quarterly-quick.md` | Template for 5-5-5 quick check-ins |
 
 ---
 
@@ -889,6 +926,131 @@ Claude reads rocks, scorecard, vision, and issues data:
 
 ---
 
+## ceos-assistance — The Assistance Track
+
+Manage the daily operational delegation workflow between a leader and their assistant using "The Stack" — a batch delegation queue. Implements the 5 disciplines: batching, The Stack, the daily meeting, the assistant's judgment, and weekly review. Complements `ceos-delegate` (strategic delegation) by managing operational delegation (daily handoffs).
+
+### When to Use
+
+- "Add to the stack" or "stack this for my assistant"
+- "Run the daily meeting" or "daily standup with my assistant"
+- "Weekly assistance review" or "how's delegation going?"
+- "Show stuck items" or "what's been on the stack too long?"
+
+### Key Operations
+
+| Operation | What Happens |
+|-----------|-------------|
+| **Stack** | Add a new item to The Stack with title, urgency (today/this_week/whenever), and details |
+| **Daily** | Run the structured 5-15 minute standup — review pending items, hand off, check progress, add new items |
+| **Review** | Weekly summary — stack health, stuck items (3+ days), meeting cadence, delegation trends |
+
+### Stack Item Lifecycle
+
+| Status | Meaning | Set When |
+|--------|---------|----------|
+| `pending` | On the stack, awaiting handoff | Item creation (Stack mode) |
+| `handed_off` | Discussed in daily meeting, assistant working on it | Daily mode |
+| `done` | Completed | Daily or Stack mode |
+
+### Urgency Values
+
+| Value | Expected Turnaround |
+|-------|-------------------|
+| `today` | Same day |
+| `this_week` | Within the week |
+| `whenever` | Best effort, no time pressure |
+
+### Example
+
+```
+> "Add to the stack: Schedule board meeting - this_week"
+
+Added to stack: stack-003 "Schedule board meeting" (this_week)
+Stack total: 5 pending items
+
+> "Run the daily meeting"
+
+Daily Standup — 2026-02-16
+━━━━━━━━━━━━━━━━━━━━━━━━━
+Leader: Brad Feld  |  Assistant: Sarah Chen
+
+🔴 TODAY:
+  stack-005: "Call insurance broker" (pending)
+
+📋 PENDING:
+  stack-003: "Schedule board meeting" (this_week)
+  stack-007: "Order office supplies" (whenever)
+
+🔄 IN PROGRESS:
+  stack-001: "Book travel for March" (handed_off — 3 days ago)
+```
+
+### Files
+
+| File | Purpose |
+|------|---------|
+| `data/assistance/stack/` | Stack items — one file per delegation item |
+| `data/assistance/daily/` | Daily meeting logs — one file per meeting |
+| `data/accountability.md` | Leader-assistant relationship source (read-only) |
+| `data/delegate/` | D&E audits for cross-reference in Review mode (read-only) |
+| `templates/assistance-stack.md` | Template for new stack items |
+| `templates/assistance-daily.md` | Template for daily meeting logs |
+
+---
+
+## ceos-cashflow — The 8 Cash Flow Drivers
+
+Assess and optimize the 8 financial levers that impact cash flow — Price, Volume, COGS/Margin, AR Days, AP Days, Inventory/WIP, Operating Expenses, and Debt Structure. Walk through each driver systematically, set baseline and target metrics, assign owners, and track improvement over time.
+
+### When to Use
+
+- "Assess our cash flow" or "review cash flow drivers"
+- "How can we improve cash flow?" or "which financial levers should we pull?"
+- "Show cash flow history" or "compare our cash flow assessments"
+
+### Key Operations
+
+| Operation | What Happens |
+|-----------|-------------|
+| **Assess** | Walk through all 8 drivers — current state, improvement potential (high/medium/low/none), owner, baseline metric, target metric. Prioritize top 3-5 drivers. Create assessment file. |
+| **Review** | Quarterly check-in comparing current values to baseline/target. Flags stalling or regressing drivers. Optionally saves as a new assessment. |
+| **History** | Chronological timeline of all assessments. Per-driver trend analysis. Insights on consistently prioritized vs. improved drivers. |
+
+### The 8 Cash Flow Drivers
+
+| # | Driver | Question | Example Metric |
+|---|--------|----------|---------------|
+| 1 | Price | Can we increase prices without losing customers? | Average revenue per unit |
+| 2 | Volume | Can we increase units sold? | Monthly units sold |
+| 3 | COGS / Margin | Can we reduce direct costs? | Gross margin % |
+| 4 | Accounts Receivable (AR) Days | Can we collect payments faster? | Average days to collect |
+| 5 | Accounts Payable (AP) Days | Can we extend our payment terms? | Average days to pay |
+| 6 | Inventory / WIP | Can we reduce working capital tied up? | Inventory turnover ratio |
+| 7 | Operating Expenses | Can we reduce overhead? | OpEx as % of revenue |
+| 8 | Debt Structure | Can we optimize our financing? | Interest rate / debt-to-equity |
+
+### Example
+
+```
+You: "Let's assess our cash flow drivers"
+Claude: Reads previous assessments if any → Walks through 8 drivers
+        → For each: current state, potential, owner, metrics
+        → Ranks drivers by improvement potential
+        → Creates data/cashflow/2026-02-16-assessment.md
+```
+
+### Files
+
+| File | Purpose |
+|------|---------|
+| `data/cashflow/` | Cash flow assessment files (one per assessment) |
+| `data/accountability.md` | Owner suggestions from the Accountability Chart (read-only) |
+| `data/scorecard/metrics.md` | Metric cross-reference (read-only) |
+| `templates/cashflow-assessment.md` | Template for new assessments |
+
+---
+
 ## ceos-checkup — Organizational Checkup
 
 Measure organizational health using the EOS Organizational Checkup — a 20-question assessment across the Six Key Components (Vision, People, Data, Issues, Process, Traction). Each leadership team member rates 1-5 on each question.
@@ -1027,6 +1189,104 @@ Claude reads data/accountability.md for seat responsibilities, then walks throug
 | `data/accountability.md` | Seat responsibilities for starter list (read-only) |
 | `data/people/` | People evaluations for context (read-only) |
 | `templates/delegate.md` | Template for new delegation audits |
+
+---
+
+## ceos-lma — LMA Assessment
+
+Assess leadership and management effectiveness using the LMA (Leadership + Management = Accountability) framework — EOS Toolbox tool #11. Rate yourself on 5 Leadership Practices and 5 Management Practices, calculate scores, and optionally gather 360-degree feedback from direct reports.
+
+### When to Use
+
+- "Run LMA assessment" or "LMA for [person]"
+- "How am I doing as a manager?" or "leadership assessment"
+- "Show LMA scores" or "team LMA summary"
+- "360 feedback for [person]"
+
+### The 10 Practices
+
+#### Leadership Practices
+
+| # | Practice | Description |
+|---|----------|-------------|
+| 1 | Giving clear direction | Setting vision, priorities, and expectations |
+| 2 | Providing the necessary tools | Training, resources, systems, authority |
+| 3 | Letting go of the vine | Empowering others, not micromanaging |
+| 4 | Acting with the greater good in mind | Decisions for the organization, not self |
+| 5 | Taking Clarity Breaks | Strategic thinking time away from day-to-day |
+
+#### Management Practices
+
+| # | Practice | Description |
+|---|----------|-------------|
+| 1 | Keeping expectations clear | Seat, roles, Rocks, and measurables defined |
+| 2 | Communicating well | Open, honest, two-way communication |
+| 3 | Maintaining the right meeting pulse | Consistent, productive L10 meetings |
+| 4 | Having quarterly conversations | Formal quarterly check-ins with direct reports |
+| 5 | Rewarding and recognizing | Acknowledging work, addressing underperformance |
+
+### Three Modes
+
+| Mode | What Happens |
+|------|-------------|
+| **Assess** | Walk through all 10 practices for a specific person. Rate each 1-5. Calculate Leadership score, Management score, and overall LMA score. Flag practices below 3. Cross-references Clarity Break frequency, L10 meeting pulse, and quarterly conversation data for evidence-based context |
+| **Review** | Summary of all managers' LMA scores with team averages and trends over time. Highlights lowest-scoring practices across the team. Flags stale assessments (> 120 days) |
+| **360** | Gather feedback from direct reports on a manager's 10 practices. Compare self-assessment vs team perception in a side-by-side table. Flag large gaps (>= 2 points) as discussion topics |
+
+### Example
+
+```
+You: "Run LMA for Brad"
+
+Claude reads data/accountability.md for seat, data/clarity/ for break frequency,
+data/meetings/l10/ for meeting pulse, data/conversations/ for quarterly frequency:
+
+  LMA Assessment — Brad Feld
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Cross-Skill Context:
+    Clarity Breaks (last 90 days): 3 sessions
+    L10 Meeting Pulse (last 8 weeks): 7/8 weeks
+    Quarterly Conversations: 2 this quarter
+
+  Leadership Practices:
+  | # | Practice                            | Rating |
+  |---|-------------------------------------|--------|
+  | 1 | Giving clear direction              | 5      |
+  | 2 | Providing the necessary tools       | 4      |
+  | 3 | Letting go of the vine              | 4      |
+  | 4 | Acting with the greater good in mind| 5      |
+  | 5 | Taking Clarity Breaks               | 3      |
+  Leadership Score: 4.2
+
+  Management Practices:
+  | # | Practice                            | Rating |
+  |---|-------------------------------------|--------|
+  | 1 | Keeping expectations clear          | 4      |
+  | 2 | Communicating well                  | 4      |
+  | 3 | Maintaining the right meeting pulse | 4      |
+  | 4 | Having quarterly conversations      | 4      |
+  | 5 | Rewarding and recognizing           | 3      |
+  Management Score: 3.8
+
+  Overall LMA: 4.0 / 5.0
+  Leadership + Management = Accountability
+
+  No practices flagged — all rated 3 or above.
+  Save this LMA assessment?
+```
+
+### Files
+
+| File | Purpose |
+|------|---------|
+| `data/lma/` | LMA assessment files (one per person) |
+| `data/accountability.md` | Management relationships and seat info (read-only) |
+| `data/people/` | People evaluations for context (read-only) |
+| `data/clarity/` | Clarity Break frequency (read-only) |
+| `data/meetings/l10/` | L10 meeting pulse (read-only) |
+| `data/conversations/` | Quarterly conversation frequency (read-only) |
+| `templates/lma-assessment.md` | Template for new LMA assessments |
 
 ---
 
@@ -1268,6 +1528,63 @@ Claude: Reads prior Focus Day and VB Day 1 files for context
 
 ---
 
+## ceos-trust — The Trust Builders
+
+Facilitate vulnerability-based trust exercises that strengthen the leadership team's relationships, communication, and ability to engage in productive conflict.
+
+### When to Use
+
+- "Let's build team trust" or "run a trust exercise"
+- "What's the next trust exercise?" or "show trust progress"
+- "Schedule trust exercises for the quarter"
+- "Show our trust journey" or "trust exercise history"
+
+### Key Operations
+
+| Operation | What Happens |
+|-----------|-------------|
+| **Facilitate** | Guides the team through one of 10 progressive trust exercises with full facilitation notes |
+| **Schedule** | Plans trust exercises for the quarter, recommending next exercise based on history and 30-day spacing |
+| **Review** | Shows trust journey progress — exercises completed, participation trends, vulnerability progression |
+
+### The 10 Trust Exercises (Progressive)
+
+| # | Exercise | Vulnerability Level | Typical Duration |
+|---|----------|-------------------|------------------|
+| 1 | Personal Histories | Low | 30 min |
+| 2 | DISC/Kolbe Sharing | Low | 45 min |
+| 3 | Lifeline | Medium | 60 min |
+| 4 | One Thing | Medium | 30 min |
+| 5 | Feedback Round | Medium | 45 min |
+| 6 | Strengths Spotlight | Medium | 45 min |
+| 7 | Conflict Norms | Medium | 45 min |
+| 8 | Accountability Partners | High | 30 min |
+| 9 | Team Effectiveness Debrief | High | 60 min |
+| 10 | Vulnerability Circle | High | 45 min |
+
+Exercises are designed to be done in order, building comfort with vulnerability progressively. Teams that skip ahead often find the higher exercises uncomfortable without the foundation.
+
+### Example
+
+```
+You: "Let's do a trust exercise"
+Claude: Checks trust history → Finds exercises 1-3 completed
+        → Recommends Exercise 4 (One Thing)
+        → Guides facilitation with setup, time management, and debrief questions
+        → Records the session in data/trust/
+```
+
+### Key Files
+
+| File | Purpose |
+|------|---------|
+| `data/trust/` | Trust exercise records (one per session) |
+| `data/accountability.md` | Team members for participant validation |
+| `data/checkups/` | Organizational checkup for trust-related trends |
+| `templates/trust-exercise.md` | Template for new exercise records |
+
+---
+
 ## Cross-Skill Workflows
 
 The skills are designed to work together through the natural EOS cadence. Here are common multi-skill workflows:
@@ -1338,4 +1655,34 @@ The skills are designed to work together through the natural EOS cadence. Here a
 2. Q3/Q4 tasks identify what to delegate before next quarter
 3. ceos-quarterly-planning considers delegation capacity when setting Rocks
 4. Delegation plans inform hiring decisions and role changes
+```
+
+### Delegate and Elevate → Assistance Track → Todos
+
+```
+1. ceos-delegate identifies tasks in Q3/Q4 for delegation
+2. ceos-assistance manages daily handoffs via The Stack
+3. Review mode cross-references stuck stack items with D&E audit
+4. Recurring stack patterns suggest permanent delegation
+5. Action items from daily meetings can become ceos-todos
+```
+
+### Trust Builders → Checkup → Annual Planning
+
+```
+1. ceos-trust facilitates progressive exercises throughout the quarter
+2. Trust exercise history shows team vulnerability progression
+3. ceos-checkup People component scores reflect team health improvements
+4. ceos-annual references trust journey during organizational review
+5. Year-over-year trust patterns inform People component development
+```
+
+### Cash Flow Assessment → Rocks / Issues
+
+```
+1. ceos-cashflow identifies high-potential drivers during assessment
+2. Top-priority drivers may become Rocks via ceos-rocks (e.g., "Reduce AR Days from 45 to 30")
+3. Stalling drivers surface as Issues for ceos-ids investigation
+4. Scorecard metrics (ceos-scorecard) track driver progress between assessments
+5. ceos-quarterly-planning references cash flow trends when setting priorities
 ```

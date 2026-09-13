@@ -13,7 +13,7 @@ Before creating a new skill, ask these questions:
 | Is it EOS-specific? | Belongs in CEOS | Consider a general-purpose skill instead |
 | Do multiple teams need this? | Good candidate | Maybe keep it as a custom skill in your fork |
 
-The current 17 skills cover the full EOS toolkit — from core tools like V/TO and Rocks to advanced workflows like L10 meetings, Annual Planning, and Organizational Checkups.
+The current 23 skills cover the full EOS toolkit — from core tools like V/TO and Rocks to advanced workflows like L10 meetings, Annual Planning, and Organizational Checkups.
 
 ## Skill File Structure
 
@@ -325,7 +325,7 @@ CEOS skills are tested manually with Claude Code:
 1. **Open an Issue first** — describe the EOS process your skill implements
 2. **Fork the repo** and create your skill in `skills/ceos-NAME/SKILL.md`
 3. **Follow the naming convention**: `ceos-` prefix, lowercase, hyphen-separated
-4. **Update docs** — add your skill to [skill-reference.md](skill-reference.md)
+4. **Update all required files** — see the [Files to Update checklist](skill-structure.md#files-to-update-critical--all-must-be-done-in-the-same-commit) in skill-structure.md
 5. **Submit a PR** with:
    - The SKILL.md file
    - Before/after examples showing the skill in action

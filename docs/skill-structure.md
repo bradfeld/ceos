@@ -86,10 +86,15 @@ Each skill owns exactly one data directory. Other skills may read from it but MU
 | ceos-quarterly | `data/conversations/` | `data/vision.md`, `data/accountability.md`, `data/rocks/`, `data/people/` |
 | ceos-annual | `data/annual/` | `data/vision.md`, `data/rocks/`, `data/scorecard/`, `data/issues/`, `data/accountability.md`, `data/people/` |
 | ceos-quarterly-planning | `data/quarterly/` | `data/rocks/`, `data/scorecard/`, `data/vision.md`, `data/issues/` |
+| ceos-cashflow | `data/cashflow/` | `data/accountability.md`, `data/scorecard/` |
 | ceos-checkup | `data/checkups/` | `data/vision.md`, `data/accountability.md`, `data/rocks/`, `data/scorecard/`, `data/people/`, `data/issues/` |
 | ceos-delegate | `data/delegate/` | `data/accountability.md`, `data/people/` |
+| ceos-assistance | `data/assistance/` | `data/accountability.md`, `data/delegate/` |
+| ceos-trust | `data/trust/` | `data/accountability.md`, `data/checkups/` |
+| ceos-lma | `data/lma/` | `data/accountability.md`, `data/people/`, `data/clarity/`, `data/meetings/l10/`, `data/conversations/` |
 | ceos-kickoff | `data/meetings/kickoff/` | `data/vision.md`, `data/rocks/`, `data/scorecard/`, `data/issues/`, `data/accountability.md` |
 | ceos-clarity | `data/clarity/` | `data/vision.md`, `data/rocks/`, `data/scorecard/`, `data/issues/open/` |
+| ceos-dashboard | *(none — read-only)* | `data/vision.md`, `data/rocks/`, `data/scorecard/`, `data/issues/open/`, `data/people/`, `data/accountability.md` |
 
 **Orchestrator skills** (`ceos-l10`, `ceos-annual`, `ceos-quarterly-planning`, `ceos-kickoff`) read broadly but write only to their own data directory. They reference data from other skills during sessions and suggest follow-up actions via those skills.
 
@@ -123,11 +128,12 @@ Every new skill requires updates to these files. Missing any causes documentatio
 | File | What to Update |
 |------|---------------|
 | `docs/skill-structure.md` | Add row to data ownership table |
-| `CLAUDE.md` | Add `data/` entry to directory structure |
+| `AGENTS.md` | Add `data/` entry to directory structure |
 | `README.md` | Add row to skills table, update skill count in heading + intro paragraph |
 | `setup.sh` | Add `mkdir -p "$CEOS_ROOT/data/newskill"` to the `init` function |
 | `docs/skill-reference.md` | Add skill entry (description, modes, example, files table) |
 | `docs/eos-primer.md` | Update Six Key Components table if the skill maps to one |
+| `docs/data-format-spec.md` | Add data format section if the skill creates new file types |
 
 ### Exemplar Skills
 
