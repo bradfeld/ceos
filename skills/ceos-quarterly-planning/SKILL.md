@@ -184,7 +184,7 @@ Record all scoring data in the planning file.
    ━━━━━━━━━━━━━━━━━━━━━━━━━━━
    | Metric | Avg | Goal | Hit Rate | Trend |
    |--------|-----|------|----------|-------|
-   | Weekly Revenue | $48K | $50K | 65% | Improving ↑ |
+   | Weekly Revenue | \$48K | \$50K | 65% | Improving ↑ |
    | New Customers | 8 | 10 | 45% | Stable → |
    | NPS | 74 | 70 | 85% | Improving ↑ |
    ```
@@ -208,7 +208,7 @@ This is a **light alignment check**, not a full V/TO refresh (that's annual).
    ━━━━━━━━━━━━━━━━━━━━━━━━━━
    | # | Goal | Progress | On Track? |
    |---|------|----------|-----------|
-   | 1 | $2M ARR | $1.2M (60%) | Yes ✓ |
+   | 1 | \$2M ARR | \$1.2M (60%) | Yes ✓ |
    | 2 | Launch 3 products | 2/3 launched | Yes ✓ |
    | 3 | Hire VP Sales | Not started | No ✗ |
    ```
@@ -279,7 +279,7 @@ This is a **light alignment check**, not a full V/TO refresh (that's annual).
    |------|-------|------------|
    | Launch product #3 | Brad | Goal 2: Launch 3 products |
    | Hire VP Sales | Daniel | Goal 3: Hire VP Sales |
-   | Reduce churn to <5% | Sarah | Goal 1: $2M ARR |
+   | Reduce churn to <5% | Sarah | Goal 1: \$2M ARR |
    ```
 
 Record in the planning file.
@@ -391,7 +391,7 @@ Scorecard Trends — YYYY-QN
 
 | Metric | Avg | Goal | Hit Rate | Trend |
 |--------|-----|------|----------|-------|
-| Weekly Revenue | $48K | $50K | 65% | Improving ↑ |
+| Weekly Revenue | \$48K | \$50K | 65% | Improving ↑ |
 | New Customers | 8 | 10 | 45% | Stable → |
 | NPS | 74 | 70 | 85% | Improving ↑ |
 ```

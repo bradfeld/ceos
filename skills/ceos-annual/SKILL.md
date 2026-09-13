@@ -311,7 +311,7 @@ Scorecard Trends — YYYY
 
 | Metric          | Avg   | Goal  | Hit Rate | Trend     |
 |-----------------|-------|-------|----------|-----------|
-| Weekly Revenue  | $48K  | $50K  | 65%      | Improving |
+| Weekly Revenue  | \$48K  | \$50K  | 65%      | Improving |
 | New Customers   | 8     | 10    | 45%      | Stable    |
 | NPS             | 74    | 70    | 85%      | Improving |
 ```

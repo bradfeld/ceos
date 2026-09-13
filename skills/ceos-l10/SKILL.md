@@ -77,7 +77,7 @@ Record responses in the Segue section.
 
 ```
 Scorecard — Week 07:
-  Weekly Revenue: $52K (goal: $50K) ✓
+  Weekly Revenue: \$52K (goal: \$50K) ✓
   New Customers: 7 (goal: 10) ✗ → add to Issues?
   NPS: 72 (goal: 70) ✓
 ```
