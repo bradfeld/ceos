@@ -305,4 +305,4 @@ This skill manages process documentation independently. No other CEOS skills rea
 
 ### Why Mostly Self-Contained?
 
-Unlike other EOS components that cross-reference each other (Rocks → V/TO, Scorecard → L10), core processes are standalone documentation. They reference the V/TO for alignment and the Accountability Chart for owner validation, but there are no formal data dependencies between process files and other CEOS data files.
+Unlike other EOS components that cross-reference each other (Rocks → V/TO, Scorecard → L10), core processes are standalone documentation. They reference the V/TO for alignment and the Accountability Chart for owner validation, and may be referenced informally during L10 meetings or annual planning, but there are no formal data dependencies between process files and other CEOS data files.

@@ -150,7 +150,7 @@ For each of the top 3 issues, follow the IDS process:
 2. **Discuss** — Each person shares their perspective. Stay focused — no tangents, no solving yet.
 3. **Solve** — What's the action? Create at least one To-Do with an owner and due date. Cross-reference `data/accountability.md` to validate that the To-Do owner matches the seat responsible for that area.
 
-Record the IDS work in the meeting notes. If this creates a new issue file, use `ceos-ids` or write to `data/issues/open/` directly.
+Record the IDS work in the meeting notes. If this creates a new issue file, use `ceos-ids` to write it — `ceos-l10` reads `data/issues/open/` but does not write there directly.
 
 ### Step 8: Conclude (5 minutes)
 
