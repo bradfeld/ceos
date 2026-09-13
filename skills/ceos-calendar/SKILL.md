@@ -100,7 +100,7 @@ April 2026
 
 #### Step 4: Cross-Reference with Rocks
 
-Read `data/rocks/[current-quarter]/` and highlight any events that relate to current Rocks. For example, if a Rock is "Raise $2.5M Seed Round" and there's a fundraising event, note the connection.
+Read `data/rocks/[current-quarter]/` and highlight any events that relate to current Rocks. For example, if a Rock is "Raise \$2.5M Seed Round" and there's a fundraising event, note the connection.
 
 ---
 

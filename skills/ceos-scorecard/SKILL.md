@@ -68,10 +68,10 @@ For each new metric, collect:
 
 1. **Metric name** — what are we measuring? (e.g., "Weekly Revenue", "New Customers")
 2. **Owner** — one person responsible for this number
-3. **Goal** — the target value (e.g., "$50,000", "10")
+3. **Goal** — the target value (e.g., "\$50,000", "10")
 4. **Frequency** — Weekly (most metrics) or Monthly
-5. **Green threshold** — what value means "on track" (e.g., ">= $50,000")
-6. **Red threshold** — what value means "off track" (e.g., "< $50,000")
+5. **Green threshold** — what value means "on track" (e.g., ">= \$50,000")
+6. **Red threshold** — what value means "off track" (e.g., "< \$50,000")
 
 #### Step 3: Validate
 
@@ -117,7 +117,7 @@ Show the complete entry before writing:
 
 | Metric | Owner | Goal | Actual | Status |
 |--------|-------|------|--------|--------|
-| Weekly Revenue | brad | $50K | $52K | on_track |
+| Weekly Revenue | brad | \$50K | \$52K | on_track |
 | New Customers | daniel | 10 | 7 | off_track |
 
 Ask: "Save this week's scorecard?"
@@ -141,12 +141,12 @@ Read all files in `data/scorecard/weeks/`, sorted by week number. Focus on the m
 For each metric, show the last 13 weeks:
 
 ```
-Weekly Revenue (brad) — Goal: $50K
+Weekly Revenue (brad) — Goal: \$50K
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-W01: $48K ✗  W02: $51K ✓  W03: $49K ✗  W04: $55K ✓
-W05: $52K ✓  W06: $47K ✗  W07: $53K ✓  W08: $50K ✓
-W09: $54K ✓  W10: $51K ✓  W11: $48K ✗  W12: $52K ✓
-W13: $55K ✓
+W01: \$48K ✗  W02: \$51K ✓  W03: \$49K ✗  W04: \$55K ✓
+W05: \$52K ✓  W06: \$47K ✗  W07: \$53K ✓  W08: \$50K ✓
+W09: \$54K ✓  W10: \$51K ✓  W11: \$48K ✗  W12: \$52K ✓
+W13: \$55K ✓
 
 On track: 9/13 weeks (69%)
 Current streak: 1 week on track

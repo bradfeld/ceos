@@ -216,9 +216,9 @@ Date: YYYY-MM-DD
 
 V/TO — Acme Corp
   Core Focus: Helping SMBs automate operations — B2B SaaS
-  10-Year Target: $100M ARR
-  3-Year Picture: $20M revenue, 50 employees, 3 products
-  1-Year Plan: $8M revenue, launch Product #2
+  10-Year Target: \$100M ARR
+  3-Year Picture: \$20M revenue, 50 employees, 3 products
+  1-Year Plan: \$8M revenue, launch Product #2
 
 Rocks — Q1 2026
   Total: 6 | On Track: 4 | Off Track: 2 | Complete: 0 | Dropped: 0
@@ -253,7 +253,7 @@ Date: YYYY-MM-DD
 
 V/TO — Acme Corp
   Core Focus: Helping SMBs automate operations — B2B SaaS
-  10-Year Target: $100M ARR
+  10-Year Target: \$100M ARR
 
 Rocks: No Rocks set for Q1 2026. Run `ceos-rocks` to set priorities.
 
